@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">AliBenAliDoctor</string>
+    <string name="just_now">Just Now</string>
+    <string name="a_minute_ago">a min ago</string>
+    <string name="min">min</string>
+    <string name="an_hour_ago">an hour ago</string>
+    <string name="hs">h</string>
+    <string name="yesterday">yesterday</string>
+    <string name="something">Check internet connection</string>
+    <string name="password">Password</string>
+    <string name="field_req">Field required</string>
+    <string name="password_short">Password Short</string>
+    <string name="pas_not_match">Password not match</string>
+    <string name="change_language">Change language</string>
+    <string name="next">Next</string>
+    <string name="language_settings">Language Settings</string>
+    <string name="map_key" />
+    <string name="login">Log In</string>
+    <string name="user_phone">Phone number</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="create_account"><![CDATA[I don\'t have account <font color="#FF575A">Sign Up</font>]]></string>
+    <string name="previous">Previous</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="clinic_type">Clinic Type</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="specialization">Specialization</string>
+    <string name="license">license</string>
+    <string name="degree">Degree</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email">Email</string>
+    <string name="email2">Email</string>
+
+</resources>
