@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibenalidoctor.R;
-import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
 import com.alibenalidoctor.databinding.ActivityVerificationCodeBinding;
 import com.alibenalidoctor.language.Language;
 import com.alibenalidoctor.preferences.Preferences;
@@ -89,7 +88,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
                 Common.CloseKeyBoard(this, binding.edtCode);
                 checkValidCode(code);
             } else {
-                binding.edtCode.setError(getString(R.string.field_required));
+                binding.edtCode.setError(getString(R.string.field_req));
             }
 
         });
@@ -194,17 +193,17 @@ public class VerificationCodeActivity extends AppCompatActivity {
 
 
     private void navigateToHomeActivity() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(this, HomeActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 
     private void navigateToSignUpActivity() {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        intent.putExtra("phone", phone);
-        intent.putExtra("phone_code", phone_code);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(this, SignUpActivity.class);
+//        intent.putExtra("phone", phone);
+//        intent.putExtra("phone_code", phone_code);
+//        startActivity(intent);
+//        finish();
     }
 
 

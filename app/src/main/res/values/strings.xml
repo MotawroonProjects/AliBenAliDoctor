@@ -32,5 +32,24 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="email">Email</string>
     <string name="email2">Email</string>
-
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="perm_image_denied">Permission image denied</string>
+    <string name="privacy">Privacy policy</string>
+    <string name="upload_image">Upload image</string>
+    <string name="select_image_to_upload">Select Image to Upload</string>
+    <string name="cancel">Cancel</string>
+    <string name="ch_gender">choose Gender</string>
+    <string name="ch_specialization">Choose Specialization</string>
+    <string name="ch_license_image">Choose License Image</string>
+    <string name="inv_email">Invaild Email</string>
+    <string name="select_the_address">Select Address</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_code">Confirm Code</string>
+    <string name="enter_code_sent_to">Enter Code Sent To</string>
+    <string name="resend">Resend</string>
+    <string name="notifications">Notifications</string>
+    <string name="ok">Ok</string>
+    <string name="failed">Faild</string>
+    <string name="register">Register</string>
 </resources>

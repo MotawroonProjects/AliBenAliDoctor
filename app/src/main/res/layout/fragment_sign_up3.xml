@@ -57,13 +57,14 @@
                     android:textSize="15sp"
                     android:hint="@string/email2"
                     android:paddingStart="22dp"
+                    android:text="@={model.email}"
+                    error="@{model.error_email}"
                     android:paddingEnd="22dp"
                     android:inputType="textEmailSubject"
                     android:gravity="center_vertical"
                     android:textColorHint="@color/gray2"
                     android:singleLine="true"
-                    android:text="@={model.phone}"
-                    error="@{model.error_phone}"
+
                     />
 
 

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_sign_up.SignUpActivity;
 import com.alibenalidoctor.databinding.ActivityLoginBinding;
 import com.alibenalidoctor.language.Language;
 import com.alibenalidoctor.models.LoginModel;

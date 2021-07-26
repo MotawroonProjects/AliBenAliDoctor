@@ -126,7 +126,6 @@
 
 
                 <EditText
-                    error="@{model.error_name}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
@@ -136,7 +135,7 @@
                     android:paddingTop="10dp"
                     android:singleLine="true"
                     android:gravity="start"
-                    android:text="@={model.name}"
+                    android:text="@={model.degree}"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray2"
                     android:textSize="15sp" />
