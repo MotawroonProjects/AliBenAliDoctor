@@ -52,4 +52,13 @@
     <string name="ok">Ok</string>
     <string name="failed">Faild</string>
     <string name="register">Register</string>
+    <string name="no_data_to_show">No Data To Show</string>
+    <string name="status">Status</string>
+    <string name="profile">Profile</string>
+    <string name="patients">Patients</string>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="about_app">About App</string>
+    <string name="language">Language</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

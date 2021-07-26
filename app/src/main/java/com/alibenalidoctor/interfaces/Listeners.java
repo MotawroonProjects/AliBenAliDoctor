@@ -15,6 +15,17 @@ public interface Listeners {
         void onContactUs();
         void onLogout();
     }
+    interface HomeListener{
+
+        void status();
+        void profile();
+        void patient();
+
+        void setting();
+        void notification();
+        void langChange();
+    }
+
     interface BackListener
     {
         void back();

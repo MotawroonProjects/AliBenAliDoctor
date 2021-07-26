@@ -63,6 +63,10 @@
             android:name=".activities_fragments.activity_login.LoginActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_home.HomeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
         <activity
             android:name=".activities_fragments.activity_language.LanguageActivity"

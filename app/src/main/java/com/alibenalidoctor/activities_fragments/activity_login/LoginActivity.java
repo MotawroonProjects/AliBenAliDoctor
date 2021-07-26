@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
 import com.alibenalidoctor.activities_fragments.activity_sign_up.SignUpActivity;
 import com.alibenalidoctor.databinding.ActivityLoginBinding;
 import com.alibenalidoctor.language.Language;
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         binding.tvSignUp.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
