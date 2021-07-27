@@ -71,10 +71,10 @@ public class VerificationCodeActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
-        String phone = phone_code+this.phone;
+        String phone = phone_code + this.phone;
         binding.setPhone(phone);
         binding.tvResend.setOnClickListener(view -> {
-            if (canSend){
+            if (canSend) {
                 sendSmsCode();
             }
         });
@@ -169,10 +169,10 @@ public class VerificationCodeActivity extends AppCompatActivity {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
             mAuth.signInWithCredential(credential)
                     .addOnSuccessListener(authResult -> {
-                        Intent intent=getIntent();
-                        setResult(RESULT_OK,intent);
+                        Intent intent = getIntent();
+                        setResult(RESULT_OK, intent);
                         finish();
-                      //  login();
+                        //  login();
                     }).addOnFailureListener(e -> {
                 if (e.getMessage() != null) {
                     Common.CreateDialogAlert(this, e.getMessage());
@@ -180,8 +180,8 @@ public class VerificationCodeActivity extends AppCompatActivity {
                     Toast.makeText(this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                 }
             });
-        }else {
-            Toast.makeText(this,"wait sms", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "wait sms", Toast.LENGTH_SHORT).show();
         }
 
     }

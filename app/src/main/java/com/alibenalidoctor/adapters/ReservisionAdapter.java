@@ -22,14 +22,14 @@ public class ReservisionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<Object> list;
     private Context context;
     private LayoutInflater inflater;
-    private int i=0;
+    private int i = 0;
 
     //private Fragment_Main fragment_main;
     public ReservisionAdapter(List<Object> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-      //  this.fragment_main=fragment_main;
+        //  this.fragment_main=fragment_main;
 
 
     }
@@ -49,14 +49,14 @@ public class ReservisionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-myHolder.binding.tvDetials.setPaintFlags(myHolder.binding.tvDetials.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-myHolder.itemView.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        HomeActivity activity=(HomeActivity)context;
-        activity.show();
-    }
-});
+        myHolder.binding.tvDetials.setPaintFlags(myHolder.binding.tvDetials.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        myHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeActivity activity = (HomeActivity) context;
+                activity.show();
+            }
+        });
     }
 
     @Override
@@ -73,8 +73,6 @@ myHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
         }
     }
-
-
 
 
 }

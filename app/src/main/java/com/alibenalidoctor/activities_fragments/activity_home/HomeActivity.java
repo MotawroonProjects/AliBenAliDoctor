@@ -77,6 +77,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import androidx.activity.result.contract.ActivityResultContracts;
 
 public class HomeActivity extends AppCompatActivity implements Listeners.HomeListener {
@@ -147,9 +148,9 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                lang=result.getData().getStringExtra("lang");
-              refreshActivity(lang);
-                }
+                lang = result.getData().getStringExtra("lang");
+                refreshActivity(lang);
+            }
 
         });
 
@@ -446,7 +447,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void notification() {
-        Intent intent=new Intent(HomeActivity.this, NotificationActivity.class);
+        Intent intent = new Intent(HomeActivity.this, NotificationActivity.class);
         startActivity(intent);
     }
 
@@ -460,8 +461,8 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
     public void show() {
 //        binding.recView.setVisibility(View.GONE);
 //        binding.llNoData.setVisibility(View.VISIBLE);
-        Intent intent=new Intent(HomeActivity.this, ReservDetialsActivity.class);
-        intent.putExtra("type","reserv");
+        Intent intent = new Intent(HomeActivity.this, ReservDetialsActivity.class);
+        intent.putExtra("type", "reserv");
         startActivity(intent);
     }
 }

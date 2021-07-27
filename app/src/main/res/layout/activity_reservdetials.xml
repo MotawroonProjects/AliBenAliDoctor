@@ -46,7 +46,7 @@
                         android:longClickable="false"
                         android:padding="8dp"
                         android:rotation='@{lang.equals("ar")?180:0}'
-                        android:src="@drawable/ic_left_arrow"
+                        app:srcCompat="@drawable/ic_left_arrow"
                         app:tint="@color/black" />
 
                     <TextView
@@ -106,12 +106,12 @@
 
                                     android:layout_marginStart="10dp"
 
-                                    android:src="@drawable/ic_user3"
                                     app:civ_border_color="@color/white"
                                     app:civ_border_width="2dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_user3"
                                     tools:ignore="RtlCompat" />
 
                                 <View
@@ -184,11 +184,11 @@
                                     android:layout_height="20dp"
 
                                     android:layout_marginStart="10dp"
-                                    android:src="@drawable/ic_calender2"
-                                    android:tint="@color/colorAccent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_calender2"
+                                    app:tint="@color/colorAccent"
                                     tools:ignore="RtlCompat" />
 
                                 <View
@@ -261,11 +261,11 @@
                                     android:layout_height="20dp"
 
                                     android:layout_marginStart="10dp"
-                                    android:src="@drawable/ic_lmice"
-                                    android:tint="@color/colorAccent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_lmice"
+                                    app:tint="@color/colorAccent"
                                     tools:ignore="RtlCompat" />
 
                                 <View
@@ -366,12 +366,12 @@
 
                                     android:layout_marginStart="10dp"
 
-                                    android:src="@drawable/ic_gender"
                                     app:civ_border_color="@color/white"
                                     app:civ_border_width="2dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_gender"
                                     tools:ignore="RtlCompat" />
 
                                 <View
@@ -444,11 +444,11 @@
                                     android:layout_height="20dp"
 
                                     android:layout_marginStart="10dp"
-                                    android:src="@drawable/ic_human"
-                                    android:tint="@color/colorAccent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_human"
+                                    app:tint="@color/colorAccent"
                                     tools:ignore="RtlCompat" />
 
                                 <View
@@ -521,11 +521,11 @@
                                     android:layout_height="20dp"
 
                                     android:layout_marginStart="10dp"
-                                    android:src="@drawable/ic_heart"
-                                    android:tint="@color/colorAccent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_heart"
+                                    app:tint="@color/colorAccent"
                                     tools:ignore="RtlCompat" />
 
                                 <View
@@ -598,14 +598,15 @@
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </ScrollView>
+
             <Button
                 android:id="@+id/btnCall"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary"
+                android:text="@string/call_now"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:text="@string/call_now"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
     </FrameLayout>

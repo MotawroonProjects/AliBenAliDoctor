@@ -15,6 +15,7 @@
         <item name="android:windowEnterAnimation">@anim/dialog_congratulation_enter</item>
         <item name="android:windowExitAnimation">@anim/dialog_congratulation_exit</item>
     </style>
+
     <style name="SCBSwitch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">@color/online</item>

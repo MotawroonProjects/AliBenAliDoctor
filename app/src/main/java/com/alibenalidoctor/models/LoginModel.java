@@ -19,36 +19,37 @@ public class LoginModel extends BaseObservable implements Serializable {
     public ObservableField<String> error_password = new ObservableField<>();
 
     public LoginModel() {
-        phone_code ="+966";
-        phone ="";
+        phone_code = "+966";
+        phone = "";
         password = "";
     }
 
-    public boolean isDataValid(Context context){
-        if (!phone.isEmpty()&&!password.isEmpty()&&password.length()>=6){
+    public boolean isDataValid(Context context) {
+        if (!phone.isEmpty() && !password.isEmpty() && password.length() >= 6) {
             error_phone.set(null);
             error_password.set(null);
             return true;
-        }else {
+        } else {
 
-            if (phone.isEmpty()){
+            if (phone.isEmpty()) {
                 error_phone.set(context.getString(R.string.field_req));
 
-            }else {
+            } else {
                 error_phone.set(null);
 
             }
 
-            if (password.isEmpty()){
+            if (password.isEmpty()) {
                 error_password.set(context.getString(R.string.field_req));
-            }else if (password.length()<6){
+            } else if (password.length() < 6) {
                 error_password.set(context.getString(R.string.password_short));
-            }else {
+            } else {
                 error_password.set(null);
             }
             return false;
         }
     }
+
     @Bindable
     public String getPhone_code() {
         return phone_code;
@@ -58,6 +59,7 @@ public class LoginModel extends BaseObservable implements Serializable {
         this.phone_code = phone_code;
         notifyPropertyChanged(BR.phone_code);
     }
+
     @Bindable
     public String getPhone() {
         return phone;

@@ -66,7 +66,7 @@ public class PatientsActivity extends AppCompatActivity {
 
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recView.setAdapter(new PatientAdapter(list,this));
+        binding.recView.setAdapter(new PatientAdapter(list, this));
         binding.llBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

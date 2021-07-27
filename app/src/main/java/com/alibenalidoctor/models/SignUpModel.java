@@ -48,7 +48,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
         this.specialization_id = 0;
         this.licenseImage = "";
         this.degree = "";
-        this.clinic_type="";
+        this.clinic_type = "";
         this.email = "";
         this.password = "";
 
@@ -58,7 +58,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
     public boolean isStep1Valid(Context context) {
         if (!name.isEmpty() &&
                 !gender.isEmpty()
-              ) {
+        ) {
             error_name.set(null);
             error_address.set(null);
             return true;
@@ -79,7 +79,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
 
     public boolean isStep2Valid(Context context) {
         if (specialization_id != 0 &&
-!licenseImage.isEmpty()
+                !licenseImage.isEmpty()
 
             //degree_id != 0
         ) {
@@ -90,9 +90,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
             }
 
 
-
-
-            if ( licenseImage.isEmpty()) {
+            if (licenseImage.isEmpty()) {
                 Toast.makeText(context, R.string.ch_license_image, Toast.LENGTH_SHORT).show();
             }
             return false;
@@ -100,7 +98,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
     }
 
     public boolean isStep3Valid(Context context) {
-        if (!email.isEmpty() &&!phone.isEmpty()&&
+        if (!email.isEmpty() && !phone.isEmpty() &&
                 Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
                 !password.isEmpty() && password.length() >= 6
         ) {
@@ -111,7 +109,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
         } else {
             if (phone.isEmpty()) {
                 error_phone.set(context.getString(R.string.field_req));
-            }else {
+            } else {
                 error_email.set(null);
             }
             if (email.isEmpty()) {
@@ -134,8 +132,6 @@ public class SignUpModel extends BaseObservable implements Serializable {
             return false;
         }
     }
-
-
 
 
     @Bindable
@@ -205,7 +201,6 @@ public class SignUpModel extends BaseObservable implements Serializable {
     public void setSpecialization_id(int specialization_id) {
         this.specialization_id = specialization_id;
     }
-
 
 
     @Bindable

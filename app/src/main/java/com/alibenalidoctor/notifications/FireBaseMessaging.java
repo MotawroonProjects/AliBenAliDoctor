@@ -158,10 +158,10 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                             @Override
                             public void run() {
 
-                                if (image!=null) {
+                                if (image != null) {
                                     Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
                                 } else {
-                                   // Log.e("ldlfllf", image);
+                                    // Log.e("ldlfllf", image);
                                     Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
 
                                 }
@@ -215,7 +215,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-          //  new Handler(Looper.getMainLooper()).postDelayed(() -> Picasso.get().load(Uri.parse(Tags.base_url + image)).into(target), 100);
+            //  new Handler(Looper.getMainLooper()).postDelayed(() -> Picasso.get().load(Uri.parse(Tags.base_url + image)).into(target), 100);
 
             if (manager != null) {
 
@@ -249,17 +249,16 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                 };
 
 
-
                 new Handler(Looper.getMainLooper())
                         .postDelayed(new Runnable() {
                             @Override
                             public void run() {
 
 
-                                if (image!=null) {
+                                if (image != null) {
                                     Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
                                 } else {
-                                   // Log.e("ldlfllf", image);
+                                    // Log.e("ldlfllf", image);
 
                                     Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
 

@@ -32,12 +32,6 @@ public class GeneralMethod {
     }
 
 
-
-
-
-
-
-
     @BindingAdapter("image")
     public static void image(View view, String endPoint) {
         if (view instanceof CircleImageView) {
@@ -88,16 +82,16 @@ public class GeneralMethod {
 
     @BindingAdapter("date")
     public static void date(TextView view, String date) {
-        if (date!=null&&!date.isEmpty()){
-           String[] dates = date.split("T");
-           view.setText(dates[0]);
+        if (date != null && !date.isEmpty()) {
+            String[] dates = date.split("T");
+            view.setText(dates[0]);
         }
 
     }
 
     @BindingAdapter("date2")
     public static void date2(TextView view, long date2) {
-        String d = Time_Ago.getTimeAgo(date2*1000,view.getContext());
+        String d = Time_Ago.getTimeAgo(date2 * 1000, view.getContext());
         view.setText(d);
     }
 

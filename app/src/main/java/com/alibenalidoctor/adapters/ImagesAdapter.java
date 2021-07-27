@@ -20,14 +20,14 @@ public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<Object> list;
     private Context context;
     private LayoutInflater inflater;
-    private int i=0;
+    private int i = 0;
 
     //private Fragment_Main fragment_main;
     public ImagesAdapter(List<Object> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-      //  this.fragment_main=fragment_main;
+        //  this.fragment_main=fragment_main;
 
 
     }
@@ -64,8 +64,6 @@ public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         }
     }
-
-
 
 
 }

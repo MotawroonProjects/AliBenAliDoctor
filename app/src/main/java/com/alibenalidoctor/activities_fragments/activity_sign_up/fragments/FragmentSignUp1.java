@@ -34,9 +34,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_map.MapActivity;
 import com.alibenalidoctor.activities_fragments.activity_sign_up.SignUpActivity;
 import com.alibenalidoctor.databinding.DialogSelectImageBinding;
 import com.alibenalidoctor.databinding.FragmentSignUp1Binding;
+import com.alibenalidoctor.models.SelectedLocation;
 import com.alibenalidoctor.models.SignUpModel;
 import com.alibenalidoctor.share.Common;
 import com.google.android.gms.common.ConnectionResult;
@@ -74,7 +76,7 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class FragmentSignUp1 extends Fragment  {
+public class FragmentSignUp1 extends Fragment {
     private SignUpActivity activity;
     private static final String TAG = "DATA";
     private FragmentSignUp1Binding binding;
@@ -89,6 +91,7 @@ public class FragmentSignUp1 extends Fragment  {
     private Uri uri = null;
     private String lang;
     private AlertDialog dialog;
+    private SelectedLocation selectedLocation;
 
     public static FragmentSignUp1 newInstance(SignUpModel signUpModel) {
         Bundle bundle = new Bundle();
@@ -144,13 +147,28 @@ public class FragmentSignUp1 extends Fragment  {
 
                         }
                     }
+                } else {
+                    selectedLocation = (SelectedLocation) result.getData().getSerializableExtra("location");
+                    binding.tvLocation.setText(selectedLocation.getAddress());
+                    binding.tvLocation.setError(null);
                 }
             }
+        });
+        binding.imageMap.setOnClickListener(v -> {
+            selectedReq = 0;
+            Intent intent = new Intent(activity, MapActivity.class);
+            launcher.launch(intent);
+        });
+        binding.llMap.setOnClickListener(v -> {
+            selectedReq = 0;
+            Intent intent = new Intent(activity, MapActivity.class);
+            launcher.launch(intent);
         });
         binding.flSelectImage.setOnClickListener(view -> createImageDialogAlert());
 
 
     }
+
     private Uri getUriFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -230,6 +248,7 @@ public class FragmentSignUp1 extends Fragment  {
 
 
         }
+
     }
 
     @Override

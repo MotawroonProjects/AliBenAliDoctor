@@ -42,7 +42,7 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/user"
+                    app:srcCompat="@drawable/user"
                     android:clickable="false"
                     android:longClickable="false"
 
@@ -52,7 +52,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="end"
                     android:background="@drawable/circle_primary"
-                    android:src="@drawable/ic_edit"
+                    app:srcCompat="@drawable/ic_edit"
                     app:tint="@color/white"
                     android:padding="10dp"
                     android:clickable="false"
@@ -95,7 +95,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:padding="3dp"
-                        android:src="@drawable/ic_sign_user" />
+                        app:srcCompat="@drawable/ic_sign_user" />
 
                     <EditText
                         error="@{model.error_name}"
@@ -123,6 +123,7 @@
                     android:textSize="16sp" />
 
                 <LinearLayout
+                    android:id="@+id/llMap"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
@@ -136,10 +137,10 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:padding="3dp"
-                        android:src="@drawable/pin" />
+                        app:srcCompat="@drawable/pin" />
 
                     <TextView
-                        android:id="@+id/edtPhone"
+                        android:id="@+id/tvLocation"
                         error="@{model.error_address}"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -156,10 +157,11 @@
                         android:textSize="15sp" />
 
                     <ImageView
+                        android:id="@+id/imageMap"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:padding="5dp"
-                        android:src="@drawable/map" />
+                        app:srcCompat="@drawable/map" />
                 </LinearLayout>
 
 
@@ -185,7 +187,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:padding="3dp"
-                        android:src="@drawable/pin" />
+                        app:srcCompat="@drawable/pin" />
 
 
 
@@ -240,7 +242,7 @@
                 android:layout_height="24dp"
                 android:padding="3dp"
                 app:tint="@color/colorAccent"
-                android:src="@drawable/male" />
+                app:srcCompat="@drawable/male" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -271,7 +273,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:padding="3dp"
-            android:src="@drawable/female" />
+            app:srcCompat="@drawable/female" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

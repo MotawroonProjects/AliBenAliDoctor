@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class NotificationActivity extends AppCompatActivity {
     private ActivityNotificationBinding binding;
     private String lang;
-private List<Object> notificationModelList;
+    private List<Object> notificationModelList;
     private Preferences preferences;
     private UserModel userModel;
 
@@ -65,7 +65,7 @@ private List<Object> notificationModelList;
         binding.swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recView.setAdapter(new NotificationAdapter(notificationModelList,this));
+        binding.recView.setAdapter(new NotificationAdapter(notificationModelList, this));
         binding.swipeRefresh.setOnRefreshListener(this::getNotifications);
 
 

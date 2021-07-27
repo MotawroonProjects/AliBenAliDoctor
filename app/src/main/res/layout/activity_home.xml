@@ -71,7 +71,7 @@
                             android:longClickable="false"
                             android:padding="5dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/logo2" />
+                            app:srcCompat="@drawable/logo2" />
 
                         <FrameLayout
                             android:id="@+id/flNotification"
@@ -85,9 +85,9 @@
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@color/white"
                                 app:civ_border_width="0dp"
                                 app:civ_circle_background_color="@color/white"
+                                app:srcCompat="@color/white"
 
                                 />
 
@@ -99,7 +99,7 @@
                                 android:clickable="false"
                                 android:longClickable="false"
                                 android:padding="5dp"
-                                android:src="@drawable/ic_notification"
+                                app:srcCompat="@drawable/ic_notification"
 
                                 app:tint="@color/colorAccent" />
 
@@ -193,7 +193,7 @@
                                     android:layout_gravity="center"
                                     android:clickable="false"
                                     android:longClickable="false"
-                                    android:src="@drawable/chairs"
+                                    app:srcCompat="@drawable/chairs"
 
                                     />
 
@@ -250,12 +250,12 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="40dp"
-                            android:src="@drawable/user_avatar"
                             app:civ_border_color="@color/white"
                             app:civ_border_width="2dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/user_avatar"
                             tools:ignore="RtlCompat" />
 
                         <LinearLayout
@@ -310,7 +310,7 @@
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:padding="3dp"
-                                    android:src="@drawable/ic_star"
+                                    app:srcCompat="@drawable/ic_star"
                                     app:tint="@color/rate" />
                             </LinearLayout>
                         </LinearLayout>
@@ -354,7 +354,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_status" />
+                                    app:srcCompat="@drawable/ic_status" />
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -392,7 +392,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_profile" />
+                                    app:srcCompat="@drawable/ic_profile" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -421,7 +421,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_patients" />
+                                    app:srcCompat="@drawable/ic_patients" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -450,7 +450,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_terms" />
+                                    app:srcCompat="@drawable/ic_terms" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -458,7 +458,7 @@
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:gravity="start"
-                                
+
                                     android:text="@string/terms_and_conditions"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -479,7 +479,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_info" />
+                                    app:srcCompat="@drawable/ic_info" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -507,7 +507,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_language" />
+                                    app:srcCompat="@drawable/ic_language" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

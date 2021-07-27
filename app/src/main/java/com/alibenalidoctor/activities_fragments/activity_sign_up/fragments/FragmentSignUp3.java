@@ -21,24 +21,26 @@ public class FragmentSignUp3 extends Fragment {
     private static final String TAG = "DATA";
     private FragmentSignUp3Binding binding;
     public SignUpModel signUpModel;
-    public static FragmentSignUp3 newInstance(SignUpModel signUpModel){
+
+    public static FragmentSignUp3 newInstance(SignUpModel signUpModel) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(TAG,signUpModel);
+        bundle.putSerializable(TAG, signUpModel);
         FragmentSignUp3 fragmentSignUp3 = new FragmentSignUp3();
         fragmentSignUp3.setArguments(bundle);
         return fragmentSignUp3;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up3,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up3, container, false);
         initView();
         return binding.getRoot();
     }
 
     private void initView() {
         Bundle bundle = getArguments();
-        if (bundle!=null){
+        if (bundle != null) {
             signUpModel = (SignUpModel) bundle.getSerializable(TAG);
         }
         binding.edtPhone.addTextChangedListener(new TextWatcher() {

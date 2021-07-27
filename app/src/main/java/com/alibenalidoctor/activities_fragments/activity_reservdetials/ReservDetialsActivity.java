@@ -66,7 +66,7 @@ public class ReservDetialsActivity extends AppCompatActivity {
         if (type.equals("patient")) {
             binding.btnCall.setVisibility(View.GONE);
         }
-        binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recView.setAdapter(new ImagesAdapter(list, this));
         binding.llBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,7 +46,7 @@
                         android:longClickable="false"
                         android:padding="8dp"
                         android:rotation='@{lang.equals("ar")?180:0}'
-                        android:src="@drawable/ic_left_arrow"
+                        app:srcCompat="@drawable/ic_left_arrow"
                         app:tint="@color/black" />
 
                     <TextView
@@ -68,41 +68,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/gray4" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@color/color1"
-                >
+                android:background="@color/color1">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/rounded_white"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    >
+                    android:background="@drawable/rounded_white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
                     <EditText
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
-                        android:textColor="@color/black"
-                        android:singleLine="true"
                         android:hint="@string/search_for_patient"
-                        android:textSize="14sp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray6"
-                        />
+                        android:textSize="14sp" />
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_search"
-                        app:tint="@color/gray1"
-                        />
+                        app:srcCompat="@drawable/ic_search"
+                        app:tint="@color/gray1" />
                 </LinearLayout>
 
             </FrameLayout>
@@ -113,6 +113,7 @@
                 android:layout_height="match_parent"
 
                 >
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView"
                     android:layout_width="match_parent"
@@ -126,8 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvNoData"

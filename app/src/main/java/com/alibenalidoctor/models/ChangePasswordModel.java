@@ -57,13 +57,6 @@ public class ChangePasswordModel extends BaseObservable implements Serializable 
     }
 
 
-
-
-
-
-
-
-
     @Bindable
     public String getPassword() {
         return password;

@@ -30,7 +30,7 @@ import java.util.Locale;
 
 import io.paperdb.Paper;
 
-public class SignUpActivity extends AppCompatActivity{
+public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private FragmentManager fragmentManager;
 
@@ -43,14 +43,13 @@ public class SignUpActivity extends AppCompatActivity{
     private String lang;
 
     @Override
-    protected void attachBaseContext(Context newBase)
-    {
+    protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         initView();
@@ -58,40 +57,29 @@ public class SignUpActivity extends AppCompatActivity{
     }
 
 
-    private void initView()
-    {
+    private void initView() {
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
-        preferences=Preferences.getInstance();
+        preferences = Preferences.getInstance();
         fragmentManager = getSupportFragmentManager();
         signUpModel = new SignUpModel();
-displayFragment1();
+        displayFragment1();
         binding.btnNext.setOnClickListener(view -> {
-          manageData(false);
+            manageData(false);
         });
 
         binding.btnPrevious.setOnClickListener(view -> {
-        manageData(true);
+            manageData(true);
         });
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment :fragmentList){
+        for (Fragment fragment : fragmentList) {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
@@ -101,25 +89,26 @@ displayFragment1();
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment :fragmentList){
+        for (Fragment fragment : fragmentList) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
-
 
 
     }
 
     @Override
-    public void onBackPressed() { manageData(true);
+    public void onBackPressed() {
+        manageData(true);
     }
+
     public void manageData(boolean isBack) {
         if (fragmentSignUp1 != null && fragmentSignUp1.isAdded() && fragmentSignUp1.isVisible()) {
             this.signUpModel = fragmentSignUp1.signUpModel;
             if (isBack) {
                 Back();
             } else {
-               // if (signUpModel.isStep1Valid(this)) {
-                    displayFragment2();
+                // if (signUpModel.isStep1Valid(this)) {
+                displayFragment2();
                 //}
             }
         } else if (fragmentSignUp2 != null && fragmentSignUp2.isAdded() && fragmentSignUp2.isVisible()) {
@@ -129,8 +118,8 @@ displayFragment1();
                 displayFragment1();
             } else {
 
-              //  if (this.signUpModel.isStep2Valid(this)) {
-                    displayFragment3();
+                //  if (this.signUpModel.isStep2Valid(this)) {
+                displayFragment3();
                 //}
             }
         } else if (fragmentSignUp3 != null && fragmentSignUp3.isAdded() && fragmentSignUp3.isVisible()) {
@@ -140,7 +129,7 @@ displayFragment1();
                 displayFragment2();
             } else {
                 if (this.signUpModel.isStep3Valid(this)) {
-                   // signUp(signUpModel);
+                    // signUp(signUpModel);
                 }
             }
         }
@@ -219,13 +208,13 @@ displayFragment1();
 
     public void FragmentSignUp1Displayed() {
         binding.tv1.setBackgroundResource(R.drawable.circle_primary);
-        binding.tv1.setTextColor(ContextCompat.getColor(this,R.color.white));
+        binding.tv1.setTextColor(ContextCompat.getColor(this, R.color.white));
 
         binding.tv2.setBackgroundResource(R.drawable.circle_gray1_stroke);
-        binding.tv2.setTextColor(ContextCompat.getColor(this,R.color.gray1));
+        binding.tv2.setTextColor(ContextCompat.getColor(this, R.color.gray1));
 
         binding.tv3.setBackgroundResource(R.drawable.circle_gray1_stroke);
-        binding.tv3.setTextColor(ContextCompat.getColor(this,R.color.gray1));
+        binding.tv3.setTextColor(ContextCompat.getColor(this, R.color.gray1));
 
         binding.btnPrevious.setVisibility(View.GONE);
     }
@@ -233,13 +222,13 @@ displayFragment1();
 
     public void FragmentSignUp2Displayed() {
         binding.tv1.setBackgroundResource(R.drawable.circle_gray1_stroke);
-        binding.tv1.setTextColor(ContextCompat.getColor(this,R.color.gray1));
+        binding.tv1.setTextColor(ContextCompat.getColor(this, R.color.gray1));
 
         binding.tv2.setBackgroundResource(R.drawable.circle_primary);
-        binding.tv2.setTextColor(ContextCompat.getColor(this,R.color.white));
+        binding.tv2.setTextColor(ContextCompat.getColor(this, R.color.white));
 
         binding.tv3.setBackgroundResource(R.drawable.circle_gray1_stroke);
-        binding.tv3.setTextColor(ContextCompat.getColor(this,R.color.gray1));
+        binding.tv3.setTextColor(ContextCompat.getColor(this, R.color.gray1));
 
         binding.btnPrevious.setVisibility(View.VISIBLE);
     }
@@ -247,13 +236,13 @@ displayFragment1();
 
     public void FragmentSignUp3Displayed() {
         binding.tv1.setBackgroundResource(R.drawable.circle_gray1_stroke);
-        binding.tv1.setTextColor(ContextCompat.getColor(this,R.color.gray1));
+        binding.tv1.setTextColor(ContextCompat.getColor(this, R.color.gray1));
 
         binding.tv2.setBackgroundResource(R.drawable.circle_gray1_stroke);
-        binding.tv2.setTextColor(ContextCompat.getColor(this,R.color.gray1));
+        binding.tv2.setTextColor(ContextCompat.getColor(this, R.color.gray1));
 
         binding.tv3.setBackgroundResource(R.drawable.circle_primary);
-        binding.tv3.setTextColor(ContextCompat.getColor(this,R.color.white));
+        binding.tv3.setTextColor(ContextCompat.getColor(this, R.color.white));
 
         binding.btnPrevious.setVisibility(View.VISIBLE);
     }

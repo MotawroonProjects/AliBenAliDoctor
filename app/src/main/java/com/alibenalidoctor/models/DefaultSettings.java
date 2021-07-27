@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class DefaultSettings implements Serializable {
     private boolean isLanguageSelected = false;
-    private String ringToneUri="";
+    private String ringToneUri = "";
     private String ringToneName;
 
     public DefaultSettings() {

@@ -35,23 +35,20 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_change_password);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
         initView();
     }
 
     private void initView() {
-        preferences=Preferences.getInstance();
+        preferences = Preferences.getInstance();
         Paper.init(this);
-        lang = Paper.book().read("lang","ar");
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         changePasswordModel = new ChangePasswordModel();
         binding.setModel(changePasswordModel);
 
 
-
-
     }
-
 
 
     private void login() {
@@ -115,8 +112,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 });*/
 
     }
-
-
 
 
 }

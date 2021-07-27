@@ -133,10 +133,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().length()>0){
+                if (editable.toString().length() > 0) {
                     address = editable.toString();
                     binding.btnSelect.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     binding.btnSelect.setVisibility(View.GONE);
 
                 }
@@ -191,7 +191,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 getGeoData(lat, lng);
 
             });
-
 
 
         }
@@ -261,7 +260,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             if (response.body().getResults().size() > 0) {
                                 binding.btnSelect.setVisibility(View.VISIBLE);
                                 address = response.body().getResults().get(0).getFormatted_address().replace("Unnamed Road,", "");
-                                Log.e("Da",address);
+                                Log.e("Da", address);
 
                                 binding.edtSearch.setText(address + "");
                                 binding.btnSelect.setVisibility(View.VISIBLE);
@@ -416,7 +415,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
 
             startLocationUpdate();
-        } else if (requestCode == 200 && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == 200 && resultCode == Activity.RESULT_OK) {
             setResult(RESULT_OK);
             finish();
         }

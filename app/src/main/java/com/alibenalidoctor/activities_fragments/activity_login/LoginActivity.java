@@ -37,14 +37,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         initView();
     }
 
     private void initView() {
-        preferences=Preferences.getInstance();
+        preferences = Preferences.getInstance();
         Paper.init(this);
-        lang = Paper.book().read("lang","ar");
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         loginModel = new LoginModel();
         binding.setModel(loginModel);
@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
 
 
     private void login() {
@@ -157,8 +156,6 @@ public class LoginActivity extends AppCompatActivity {
                 });*/
 
     }
-
-
 
 
 }

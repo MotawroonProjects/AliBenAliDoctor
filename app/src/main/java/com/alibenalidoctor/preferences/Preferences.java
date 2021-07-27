@@ -32,6 +32,7 @@ public class Preferences {
 
 
     }
+
     public void createUpdateAppSetting(Context context, DefaultSettings settings) {
         SharedPreferences preferences = context.getSharedPreferences("settingsEbsar", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -40,10 +41,11 @@ public class Preferences {
         editor.putString("settings", data);
         editor.apply();
     }
+
     public DefaultSettings getAppSetting(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("settingsEbsar", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        return gson.fromJson(preferences.getString("settings",""), DefaultSettings.class);
+        return gson.fromJson(preferences.getString("settings", ""), DefaultSettings.class);
     }
 
 
@@ -65,7 +67,7 @@ public class Preferences {
         return preferences.getBoolean("selected", false);
     }
 
-   public void create_update_userdata(Context context, UserModel userModel) {
+    public void create_update_userdata(Context context, UserModel userModel) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String user_data = gson.toJson(userModel);
@@ -76,13 +78,14 @@ public class Preferences {
 
     }
 
-  public UserModel getUserData(Context context) {
+    public UserModel getUserData(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String user_data = preferences.getString("user_data", "");
         UserModel userModel = gson.fromJson(user_data, UserModel.class);
         return userModel;
     }
+
     public void create_update_session(Context context, String session) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("session", Context.MODE_PRIVATE);
 
@@ -116,19 +119,19 @@ public class Preferences {
         return session;
     }
 
-    public void setLastVisit(Context context,String date)
-    {
-        SharedPreferences preferences = context.getSharedPreferences("visit",Context.MODE_PRIVATE);
+    public void setLastVisit(Context context, String date) {
+        SharedPreferences preferences = context.getSharedPreferences("visit", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("lastVisit",date);
+        editor.putString("lastVisit", date);
         editor.apply();
 
     }
-    public String getLastVisit(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences("visit",Context.MODE_PRIVATE);
-        return preferences.getString("lastVisit","0");
+
+    public String getLastVisit(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("visit", Context.MODE_PRIVATE);
+        return preferences.getString("lastVisit", "0");
     }
+
     public void clear(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
@@ -140,7 +143,6 @@ public class Preferences {
         edit2.apply();
         create_update_session(context, Tags.session_logout);
     }
-
 
 
 }

@@ -48,7 +48,7 @@ public class FragmentMapTouchListener extends SupportMapFragment {
                     try {
                         mListener.onTouch();
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                     break;

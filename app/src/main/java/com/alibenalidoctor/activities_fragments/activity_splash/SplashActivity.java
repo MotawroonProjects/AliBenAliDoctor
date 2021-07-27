@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
     private ActivitySplashBinding binding;
     private Preferences preferences;
     private UserModel userModel;
-    private String lang ="ar";
+    private String lang = "ar";
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         Paper.init(this);
-        lang = Paper.book().read("lang","ar");
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);

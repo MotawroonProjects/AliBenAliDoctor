@@ -46,7 +46,7 @@ import io.paperdb.Paper;
 
 import static android.app.Activity.RESULT_OK;
 
-public class FragmentSignUp2 extends Fragment  {
+public class FragmentSignUp2 extends Fragment {
     private SignUpActivity activity;
     private static final String TAG = "DATA";
     private FragmentSignUp2Binding binding;
@@ -97,7 +97,7 @@ public class FragmentSignUp2 extends Fragment  {
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
 
-                Log.e("lll",selectedReq+"");
+                Log.e("lll", selectedReq + "");
                 if (selectedReq == READ_REQ) {
                     binding.icon.setVisibility(View.GONE);
 
@@ -109,7 +109,7 @@ public class FragmentSignUp2 extends Fragment  {
                     Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
                     binding.icon.setVisibility(View.GONE);
                     uri = getUriFromBitmap(bitmap);
-                 //   Log.e("dldkk",uri.toString());
+                    //   Log.e("dldkk",uri.toString());
                     if (uri != null) {
                         String path = Common.getImagePath(activity, uri);
 
@@ -232,7 +232,6 @@ public class FragmentSignUp2 extends Fragment  {
             }
         }
     }
-
 
 
 }

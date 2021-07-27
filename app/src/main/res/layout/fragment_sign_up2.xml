@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="model"
             type="com.alibenalidoctor.models.SignUpModel" />
 
     </data>
-    <ScrollView
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity_sign_up.SignUpActivity"
-        android:fitsSystemWindows="true"
-        android:fillViewport="true"
         android:background="@color/white"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity_sign_up.SignUpActivity"
 
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
             android:background="@color/gray0"
-            >
+            android:orientation="vertical"
+            android:padding="16dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,14 +52,12 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:padding="3dp"
-                    android:src="@drawable/special" />
-
+                    app:srcCompat="@drawable/special" />
 
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    >
+                    android:layout_height="40dp">
 
                     <Spinner
                         android:id="@+id/spCategory"
@@ -68,10 +67,10 @@
                         android:background="@drawable/custom_spinner_icon"
                         android:gravity="center"
                         android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        />
+                        android:paddingBottom="8dp" />
                 </FrameLayout>
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,28 +81,28 @@
 
 
                 />
+
             <FrameLayout
                 android:id="@+id/flSelectImage"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/small_rounded_color1"
-                >
+                android:background="@drawable/small_rounded_color1">
+
                 <ImageView
 
                     android:id="@+id/imageLicense"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    />
+                    android:scaleType="centerCrop" />
+
                 <ImageView
                     android:id="@+id/icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_gallery"
-                    app:tint="@color/gray3"
-                    />
+                    app:tint="@color/gray3" />
             </FrameLayout>
 
             <TextView
@@ -124,17 +123,16 @@
                 android:paddingEnd="8dp">
 
 
-
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
+                    android:gravity="start"
                     android:hint="@string/degree"
                     android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:singleLine="true"
-                    android:gravity="start"
                     android:text="@={model.degree}"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray2"

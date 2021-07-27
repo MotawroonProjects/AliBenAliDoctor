@@ -46,19 +46,19 @@
                         android:longClickable="false"
                         android:padding="8dp"
                         android:rotation='@{lang.equals("ar")?180:0}'
-                        android:src="@drawable/ic_left_arrow"
+                        app:srcCompat="@drawable/ic_left_arrow"
                         app:tint="@color/black" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:clickable="false"
                         android:gravity="center"
                         android:longClickable="false"
                         android:text="@string/notifications"
-                        android:layout_gravity="center"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -72,11 +72,12 @@
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefresh"
-                android:background="@color/color1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/color1"
 
                 >
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recView"
                     android:layout_width="match_parent"
@@ -90,8 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvNoData"
