@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -29,9 +31,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_language.LanguageActivity;
 import com.alibenalidoctor.activities_fragments.activity_login.LoginActivity;
+import com.alibenalidoctor.activities_fragments.activity_notification.NotificationActivity;
+import com.alibenalidoctor.activities_fragments.activity_patients.PatientsActivity;
+import com.alibenalidoctor.activities_fragments.activity_profile.ProfileActivity;
+import com.alibenalidoctor.activities_fragments.activity_reservdetials.ReservDetialsActivity;
+import com.alibenalidoctor.adapters.ReservisionAdapter;
+import com.alibenalidoctor.adapters.TimeAdapter;
 import com.alibenalidoctor.databinding.ActivityHomeBinding;
 import com.alibenalidoctor.interfaces.Listeners;
 import com.alibenalidoctor.language.Language;
@@ -50,12 +60,14 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +77,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class HomeActivity extends AppCompatActivity implements Listeners.HomeListener {
     private ActivityHomeBinding binding;
@@ -73,6 +86,8 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
     private UserModel userModel;
     private String lang;
     private ActionBarDrawerToggle toggle;
+    private List<Object> list;
+    private ActivityResultLauncher<Intent> launcher;
 
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -90,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
 
     private void initView() {
+        list = new ArrayList<>();
         fragmentManager = getSupportFragmentManager();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
@@ -121,9 +137,21 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         binding.toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recViewCategory.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.recViewCategory.setAdapter(new TimeAdapter(list, this));
+        binding.progBarCategory.setVisibility(View.GONE);
+        binding.progBar.setVisibility(View.GONE);
+        binding.recView.setAdapter(new ReservisionAdapter(list, this));
 //        adapter = new MainCategoryAdapter(mainDepartmentsList, this);
 //        binding.recView.setAdapter(adapter);
 
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                lang=result.getData().getStringExtra("lang");
+              refreshActivity(lang);
+                }
+
+        });
 
         if (userModel != null) {
 //            EventBus.getDefault().register(this);
@@ -401,12 +429,14 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void profile() {
-
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void patient() {
-
+        Intent intent = new Intent(this, PatientsActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -416,11 +446,22 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void notification() {
-
+        Intent intent=new Intent(HomeActivity.this, NotificationActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void langChange() {
 
+        Intent intent = new Intent(this, LanguageActivity.class);
+        launcher.launch(intent);
+    }
+
+    public void show() {
+//        binding.recView.setVisibility(View.GONE);
+//        binding.llNoData.setVisibility(View.VISIBLE);
+        Intent intent=new Intent(HomeActivity.this, ReservDetialsActivity.class);
+        intent.putExtra("type","reserv");
+        startActivity(intent);
     }
 }

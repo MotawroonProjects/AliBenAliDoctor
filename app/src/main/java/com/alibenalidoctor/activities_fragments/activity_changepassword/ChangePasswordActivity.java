@@ -1,4 +1,4 @@
-package com.alibenalidoctor.activities_fragments.activity_login;
+package com.alibenalidoctor.activities_fragments.activity_changepassword;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,21 +11,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibenalidoctor.R;
-import com.alibenalidoctor.activities_fragments.activity_changepassword.ChangePasswordActivity;
 import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
-import com.alibenalidoctor.activities_fragments.activity_sign_up.SignUpActivity;
-import com.alibenalidoctor.databinding.ActivityLoginBinding;
+import com.alibenalidoctor.databinding.ActivityChangePasswordBinding;
 import com.alibenalidoctor.language.Language;
-import com.alibenalidoctor.models.LoginModel;
+import com.alibenalidoctor.models.ChangePasswordModel;
 import com.alibenalidoctor.preferences.Preferences;
 import com.alibenalidoctor.share.Common;
 
 import io.paperdb.Paper;
 
-public class LoginActivity extends AppCompatActivity {
-    private ActivityLoginBinding binding;
+public class ChangePasswordActivity extends AppCompatActivity {
+    private ActivityChangePasswordBinding binding;
     private String lang;
-    private LoginModel loginModel;
+    private ChangePasswordModel changePasswordModel;
     private Preferences preferences;
 
 
@@ -37,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_change_password);
         initView();
     }
 
@@ -46,50 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang","ar");
         binding.setLang(lang);
-        loginModel = new LoginModel();
-        binding.setModel(loginModel);
-        binding.tvSignUp.setText(Html.fromHtml(getString(R.string.create_account)));
-        binding.edtPhone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().startsWith("0")) {
-                    binding.edtPhone.setText("");
-                }
-            }
-        });
-
-        binding.btnLogin.setOnClickListener(view -> {
-//            if (loginModel.isDataValid(this)) {
-//                Common.CloseKeyBoard(this, binding.edtPhone);
-//                login();
-//            }
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        });
+        changePasswordModel = new ChangePasswordModel();
+        binding.setModel(changePasswordModel);
 
 
-        binding.tvSignUp.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
-        binding.tvForgetPassword.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, ChangePasswordActivity.class);
-            startActivity(intent);
-            finish();
-        });
 
 
     }

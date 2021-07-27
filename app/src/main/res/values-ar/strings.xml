@@ -17,7 +17,7 @@
     <string name="map_key" />
     <string name="login">تسجيل الدخول</string>
     <string name="user_phone">رقم الجوال</string>
-    <string name="forgot_password">Forgot Password ?</string>
+    <string name="forgot_password">نسيت كلمة المرور ؟</string>
     <string name="create_account"><![CDATA[ليس لدي حساب بالفعل؟ <font color="#FF575A">إنشاء حساب</font>]]></string>
     <string name="previous">السابق</string>
     <string name="name">الاسم</string>
@@ -61,4 +61,15 @@
     <string name="language">اللغه</string>
     <string name="open">مفتوح</string>
     <string name="close">مغلق</string>
+    <string name="detials">تفاصيل</string>
+    <string name="price2">سعر الكشف</string>
+    <string name="rates">التقييمات</string>
+    <string name="search_for_patient">بحث عن مريض</string>
+    <string name="detials2">التفاصيل</string>
+    <string name="additional_information">معلومات إضافيه</string>
+    <string name="age">العمر</string>
+    <string name="chronic_diseases">أمراض مزمنه</string>
+    <string name="private_files">ملفات خاصه</string>
+    <string name="call_now">اتصل الان</string>
+    <string name="change_password">تغيير كلمة المرور</string>
 </resources>

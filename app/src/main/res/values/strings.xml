@@ -61,4 +61,15 @@
     <string name="language">Language</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="detials">Detials</string>
+    <string name="price2">Price</string>
+    <string name="rates">Rates</string>
+    <string name="search_for_patient">Search For Patient</string>
+    <string name="detials2">Detials</string>
+    <string name="additional_information">Additional Information</string>
+    <string name="age">Age</string>
+    <string name="chronic_diseases">Chronic Diseases</string>
+    <string name="private_files">Private Files</string>
+    <string name="call_now">Call Now</string>
+    <string name="change_password">Change Password</string>
 </resources>
