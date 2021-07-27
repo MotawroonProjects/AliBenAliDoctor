@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -32,8 +34,11 @@ import com.alibenalidoctor.activities_fragments.activity_sign_up.SignUpActivity;
 import com.alibenalidoctor.databinding.DialogSelectImageBinding;
 import com.alibenalidoctor.databinding.FragmentSignUp2Binding;
 import com.alibenalidoctor.models.SignUpModel;
+import com.alibenalidoctor.share.Common;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +55,10 @@ public class FragmentSignUp2 extends Fragment  {
     private final String write_permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final String camera_permission = Manifest.permission.CAMERA;
     private final int READ_REQ = 1, CAMERA_REQ = 2;
-
+    private ActivityResultLauncher<Intent> launcher;
+    private int selectedReq = 0;
+    private Uri uri = null;
     private AlertDialog dialog;
-    private ProgressDialog dialog2;
 
     private String lang;
 
@@ -88,10 +94,43 @@ public class FragmentSignUp2 extends Fragment  {
         }
         Paper.init(activity);
         lang = Paper.book().read("lang", "ar");
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                if (selectedReq == READ_REQ) {
+                    binding.icon.setVisibility(View.GONE);
+
+                    uri = result.getData().getData();
+                    File file = new File(Common.getImagePath(activity, uri));
+                    Picasso.get().load(file).fit().into(binding.imageLicense);
+
+                } else if (selectedReq == CAMERA_REQ) {
+                    Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+                    binding.icon.setVisibility(View.GONE);
+                    uri = getUriFromBitmap(bitmap);
+                    if (uri != null) {
+                        String path = Common.getImagePath(activity, uri);
+
+                        if (path != null) {
+                            Picasso.get().load(new File(path)).fit().into(binding.imageLicense);
+
+                        } else {
+                            Picasso.get().load(uri).fit().into(binding.imageLicense);
+
+                        }
+                    }
+                }
+            }
+        });
+        binding.flSelectImage.setOnClickListener(view -> createImageDialogAlert());
 
 
     }
 
+    private Uri getUriFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        return Uri.parse(MediaStore.Images.Media.insertImage(activity.getContentResolver(), bitmap, "", ""));
+    }
 
     public void createImageDialogAlert() {
         dialog = new AlertDialog.Builder(activity)
@@ -150,12 +189,12 @@ public class FragmentSignUp2 extends Fragment  {
 
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
-            startActivityForResult(intent, req);
+            launcher.launch(intent);
 
         } else if (req == CAMERA_REQ) {
             try {
                 intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, req);
+                launcher.launch(intent);
             } catch (SecurityException e) {
                 Toast.makeText(activity, R.string.perm_image_denied, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
