@@ -101,7 +101,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_gallery"
+                    app:srcCompat="@drawable/ic_gallery"
                     app:tint="@color/gray3"
                     />
             </FrameLayout>

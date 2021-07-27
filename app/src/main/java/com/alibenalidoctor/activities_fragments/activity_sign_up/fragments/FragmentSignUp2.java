@@ -107,6 +107,7 @@ public class FragmentSignUp2 extends Fragment  {
                     Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
                     binding.icon.setVisibility(View.GONE);
                     uri = getUriFromBitmap(bitmap);
+                 //   Log.e("dldkk",uri.toString());
                     if (uri != null) {
                         String path = Common.getImagePath(activity, uri);
 
@@ -206,11 +207,9 @@ public class FragmentSignUp2 extends Fragment  {
         }
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (requestCode == READ_REQ) {
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -230,6 +229,7 @@ public class FragmentSignUp2 extends Fragment  {
             }
         }
     }
+
 
 
 }
