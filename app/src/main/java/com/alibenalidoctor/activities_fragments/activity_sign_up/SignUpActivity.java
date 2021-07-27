@@ -26,6 +26,7 @@ import com.alibenalidoctor.models.SignUpModel;
 import com.alibenalidoctor.preferences.Preferences;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.paperdb.Paper;
 
@@ -39,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity{
     private FragmentSignUp1 fragmentSignUp1;
     private FragmentSignUp2 fragmentSignUp2;
     private FragmentSignUp3 fragmentSignUp3;
+    private String lang;
 
     @Override
     protected void attachBaseContext(Context newBase)
@@ -58,6 +60,9 @@ public class SignUpActivity extends AppCompatActivity{
 
     private void initView()
     {
+        Paper.init(this);
+        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        binding.setLang(lang);
         preferences=Preferences.getInstance();
         fragmentManager = getSupportFragmentManager();
         signUpModel = new SignUpModel();
