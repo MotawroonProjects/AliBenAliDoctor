@@ -200,6 +200,7 @@ public class FragmentSignUp1 extends Fragment  {
     }
 
     private void SelectImage(int req) {
+        selectedReq = req;
 
         Intent intent = new Intent();
 

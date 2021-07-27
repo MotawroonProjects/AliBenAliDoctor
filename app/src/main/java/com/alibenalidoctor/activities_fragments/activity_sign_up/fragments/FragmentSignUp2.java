@@ -96,6 +96,8 @@ public class FragmentSignUp2 extends Fragment  {
         lang = Paper.book().read("lang", "ar");
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+
+                Log.e("lll",selectedReq+"");
                 if (selectedReq == READ_REQ) {
                     binding.icon.setVisibility(View.GONE);
 
@@ -176,6 +178,7 @@ public class FragmentSignUp2 extends Fragment  {
     }
 
     private void SelectImage(int req) {
+        selectedReq = req;
 
         Intent intent = new Intent();
 
