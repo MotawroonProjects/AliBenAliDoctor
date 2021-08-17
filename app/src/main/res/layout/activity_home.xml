@@ -121,11 +121,18 @@
 
                     </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.AppBarLayout>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefresh"
+
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    >
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+
                     android:background="@drawable/rounded_top_color1">
 
                     <LinearLayout
@@ -212,7 +219,7 @@
                     </LinearLayout>
                 </FrameLayout>
 
-
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </LinearLayout>
 
 
@@ -226,10 +233,14 @@
 
             >
 
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fillViewport="true"
                 android:fitsSystemWindows="true">
 
@@ -526,7 +537,41 @@
 
                 </LinearLayout>
             </ScrollView>
+                <LinearLayout
+                    android:id="@+id/llogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp"
+                    android:onClick="@{()->action.logout()}"
 
+                    >
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/ic_logout"
+                        app:tint="@color/white"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:rotation='@{lang.equals("en")?180:0}'
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:text="@string/logout"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </com.google.android.material.navigation.NavigationView>
 

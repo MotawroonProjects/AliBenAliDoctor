@@ -72,4 +72,8 @@
     <string name="private_files">ملفات خاصه</string>
     <string name="call_now">اتصل الان</string>
     <string name="change_password">تغيير كلمة المرور</string>
+    <string name="incorrect_phone_pass">InCorrect Phone Password</string>
+    <string name="wait">Wait</string>
+    <string name="logout">Logout</string>
+
 </resources>

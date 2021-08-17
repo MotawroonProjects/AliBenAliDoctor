@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
 import com.alibenalidoctor.activities_fragments.activity_login.LoginActivity;
 import com.alibenalidoctor.databinding.ActivitySplashBinding;
 import com.alibenalidoctor.language.Language;
@@ -39,13 +40,17 @@ public class SplashActivity extends AppCompatActivity {
         binding.setLang(lang);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
-        new Handler()
-                .postDelayed(() -> {
-                    Intent intent;
-                    intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }, 2000);
+        new Handler().postDelayed(() -> {
+            if(userModel!=null){
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();}
+        },2000);
 
     }
 }

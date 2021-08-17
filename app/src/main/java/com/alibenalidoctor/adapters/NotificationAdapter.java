@@ -11,16 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalidoctor.R;
 import com.alibenalidoctor.databinding.NotificationRowBinding;
+import com.alibenalidoctor.models.NotificationModel;
 
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<NotificationModel> list;
     private Context context;
     private LayoutInflater inflater;
 
-    public NotificationAdapter(List<Object> list, Context context) {
+    public NotificationAdapter(List<NotificationModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -42,13 +43,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-
+        myHolder.binding.setModel(list.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return 9;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

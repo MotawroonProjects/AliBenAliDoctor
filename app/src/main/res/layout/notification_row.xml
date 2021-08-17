@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+<variable
+    name="model"
+    type="com.alibenalidoctor.models.NotificationModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -22,7 +24,7 @@
             android:layout_marginEnd="5dp"
             android:ellipsize="end"
             android:lineSpacingExtra="5dp"
-            android:text="وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت"
+            android:text="@{model.message}"
             android:textColor="@color/gray1"
             android:textSize="15sp" />
 

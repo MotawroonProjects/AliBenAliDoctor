@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+<variable
+    name="model"
+    type="com.alibenalidoctor.models.DateModel" />
     </data>
 
     <LinearLayout
@@ -21,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:singleLine="true"
-            android:text="Day"
+            android:text="@{model.day_text}"
             android:textColor="@color/gray1"
             android:textSize="14sp" />
 
@@ -33,7 +35,7 @@
             android:layout_marginTop="5dp"
             android:singleLine="true"
 
-            android:text="22"
+            android:text="@{model.day_number}"
             android:textColor="@color/gray1"
             android:textSize="14sp"
             android:textStyle="bold" />

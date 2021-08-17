@@ -35,6 +35,7 @@ public interface Listeners {
         void notification();
 
         void langChange();
+        void logout();
     }
 
     interface BackListener {

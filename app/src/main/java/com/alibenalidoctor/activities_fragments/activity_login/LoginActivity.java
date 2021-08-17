@@ -1,11 +1,14 @@
 package com.alibenalidoctor.activities_fragments.activity_login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -17,10 +20,18 @@ import com.alibenalidoctor.activities_fragments.activity_sign_up.SignUpActivity;
 import com.alibenalidoctor.databinding.ActivityLoginBinding;
 import com.alibenalidoctor.language.Language;
 import com.alibenalidoctor.models.LoginModel;
+import com.alibenalidoctor.models.UserModel;
 import com.alibenalidoctor.preferences.Preferences;
+import com.alibenalidoctor.remote.Api;
 import com.alibenalidoctor.share.Common;
+import com.alibenalidoctor.tags.Tags;
+
+import java.io.IOException;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
@@ -49,33 +60,33 @@ public class LoginActivity extends AppCompatActivity {
         loginModel = new LoginModel();
         binding.setModel(loginModel);
         binding.tvSignUp.setText(Html.fromHtml(getString(R.string.create_account)));
-        binding.edtPhone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().startsWith("0")) {
-                    binding.edtPhone.setText("");
-                }
-            }
-        });
+//        binding.edtPhone.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if (editable.toString().startsWith("0")) {
+//                    binding.edtPhone.setText("");
+//                }
+//            }
+//        });
 
         binding.btnLogin.setOnClickListener(view -> {
-//            if (loginModel.isDataValid(this)) {
-//                Common.CloseKeyBoard(this, binding.edtPhone);
-//                login();
-//            }
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            if (loginModel.isDataValid(this)) {
+                Common.CloseKeyBoard(this, binding.edtPhone);
+                login();
+            }
+//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//            finish();
         });
 
 
@@ -97,11 +108,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
 
-       /* ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .login(loginModel.getPhone_code(),loginModel.getPhone(),loginModel.getPassword())
+                .login(loginModel.getPhone(),loginModel.getPassword())
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -112,12 +123,10 @@ public class LoginActivity extends AppCompatActivity {
                                     preferences.create_update_session(LoginActivity.this, Tags.session_login);
                                     navigateToHomeActivity();
 
-                            } else if (response.body().getStatus() == 401) {
+                            } else if (response.body().getStatus() == 404) {
                                 Toast.makeText(LoginActivity.this,getResources().getString(R.string.incorrect_phone_pass),Toast.LENGTH_LONG).show();
                             }
-                            else if (response.body().getStatus() == 409) {
-                                Toast.makeText(LoginActivity.this,getResources().getString(R.string.user_blocked),Toast.LENGTH_LONG).show();
-                            }
+
                         } else {
                             try {
                                 Log.e("mmmmmmmmmm", response.errorBody().string());
@@ -131,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 Log.e("mmmmmmmmmm", response.code() + "");
 
-                                Toast.makeText(LoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(LoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -144,17 +153,22 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.e("msg_category_error", t.toString() + "__");
 
                                 if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(LoginActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                  //  Toast.makeText(LoginActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(LoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                //    Toast.makeText(LoginActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         } catch (Exception e) {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
 
+    }
+    private void navigateToHomeActivity() {
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

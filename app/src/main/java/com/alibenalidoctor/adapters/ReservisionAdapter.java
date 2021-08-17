@@ -14,18 +14,19 @@ import com.alibenalidoctor.R;
 import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
 import com.alibenalidoctor.databinding.ReservisionRowBinding;
 import com.alibenalidoctor.databinding.TimeRowBinding;
+import com.alibenalidoctor.models.ReservationModel;
 
 import java.util.List;
 
 public class ReservisionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<ReservationModel> list;
     private Context context;
     private LayoutInflater inflater;
     private int i = 0;
 
     //private Fragment_Main fragment_main;
-    public ReservisionAdapter(List<Object> list, Context context) {
+    public ReservisionAdapter(List<ReservationModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -49,6 +50,7 @@ public class ReservisionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        myHolder.binding.setModel(list.get(position));
         myHolder.binding.tvDetials.setPaintFlags(myHolder.binding.tvDetials.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class ReservisionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return 16;
+        return list.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

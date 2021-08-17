@@ -1,5 +1,6 @@
 package com.alibenalidoctor.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibenalidoctor.R;
 import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
 import com.alibenalidoctor.databinding.TimeRowBinding;
+import com.alibenalidoctor.models.DateModel;
+import com.alibenalidoctor.models.HourModel;
 
 import java.util.List;
 
 public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<DateModel> list;
     private Context context;
     private LayoutInflater inflater;
     private int i = 0;
 
     //private Fragment_Main fragment_main;
-    public TimeAdapter(List<Object> list, Context context) {
+    public TimeAdapter(List<DateModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -45,9 +48,10 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        myHolder.binding.setModel(list.get(position));
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,19 +62,21 @@ public class TimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (i == position) {
             myHolder.binding.tv1.setTextColor(context.getResources().getColor(R.color.colorAccent));
             myHolder.binding.tv2.setTextColor(context.getResources().getColor(R.color.colorAccent));
+             if(context instanceof HomeActivity){
+            HomeActivity activity = (HomeActivity) context;
+            activity.getData(list.get(i).getDate());}
+
 
         } else {
             myHolder.binding.tv1.setTextColor(context.getResources().getColor(R.color.gray1));
             myHolder.binding.tv2.setTextColor(context.getResources().getColor(R.color.gray1));
-            HomeActivity activity = (HomeActivity) context;
-            //activity.show();
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return 16;
+        return list.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

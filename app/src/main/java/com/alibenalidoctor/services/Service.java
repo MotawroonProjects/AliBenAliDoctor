@@ -1,15 +1,21 @@
 package com.alibenalidoctor.services;
 
+import com.alibenalidoctor.models.DateDataModel;
+import com.alibenalidoctor.models.NotificationDataModel;
 import com.alibenalidoctor.models.PlaceGeocodeData;
 import com.alibenalidoctor.models.PlaceMapDetailsData;
+import com.alibenalidoctor.models.ReservationDataModel;
+import com.alibenalidoctor.models.StatusResponse;
 import com.alibenalidoctor.models.UserModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -31,8 +37,8 @@ public interface Service {
                                       @Query(value = "key") String key);
 
     @FormUrlEncoded
-    @POST("api/client-login")
-    Call<UserModel> login(@Field("phone_code") String phone_code,
+    @POST("api/login_doctor")
+    Call<UserModel> login(
                           @Field("phone") String phone,
                           @Field("password") String password
 
@@ -64,5 +70,35 @@ public interface Service {
 
     );
 
+    @FormUrlEncoded
+    @POST("api/logout_doctor")
+    Call<StatusResponse> logout(
+            @Field("doctor_id") String doctor_id,
+            @Field("token") String token
+    );
 
+    @FormUrlEncoded
+    @POST("api/update-firebase")
+    Call<StatusResponse> updatePhoneToken(
+            @Field("firebase_token") String firebase_token,
+            @Field("doctor_id") int doctor_id,
+            @Field("type") String type
+    );
+
+    @GET("api/doctor_notification")
+    Call<NotificationDataModel> getNotifications(
+            @Header("language") String language,
+            @Query("doctor_id") int doctor_id
+    );
+    @GET("api/reservations_dates")
+    Call<DateDataModel> getDates(
+            @Header("language") String language
+    );
+    @GET("api/doctor_reservations")
+    Call<ReservationDataModel> myReservation(@Header("language") String language,
+                                             @Query("doctor_id") String doctor_id,
+                                             @Query("date") String date
+
+
+    );
 }

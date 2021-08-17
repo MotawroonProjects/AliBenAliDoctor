@@ -1,35 +1,21 @@
 package com.alibenalidoctor.activities_fragments.activity_home;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,35 +31,26 @@ import com.alibenalidoctor.adapters.TimeAdapter;
 import com.alibenalidoctor.databinding.ActivityHomeBinding;
 import com.alibenalidoctor.interfaces.Listeners;
 import com.alibenalidoctor.language.Language;
+import com.alibenalidoctor.models.DateDataModel;
+import com.alibenalidoctor.models.DateModel;
+import com.alibenalidoctor.models.ReservationDataModel;
+import com.alibenalidoctor.models.ReservationModel;
+import com.alibenalidoctor.models.StatusResponse;
 import com.alibenalidoctor.models.UserModel;
 import com.alibenalidoctor.preferences.Preferences;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.alibenalidoctor.remote.Api;
+import com.alibenalidoctor.share.Common;
+import com.alibenalidoctor.tags.Tags;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.squareup.picasso.Picasso;
 
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -83,11 +60,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 public class HomeActivity extends AppCompatActivity implements Listeners.HomeListener {
     private ActivityHomeBinding binding;
     private Preferences preferences;
-    private FragmentManager fragmentManager;
     private UserModel userModel;
     private String lang;
     private ActionBarDrawerToggle toggle;
-    private List<Object> list;
+    private List<ReservationModel> list;
+    private ReservisionAdapter reservisionAdapter;
+    private TimeAdapter adapter;
+    private List<DateModel> dateModelList;
     private ActivityResultLauncher<Intent> launcher;
 
     protected void attachBaseContext(Context newBase) {
@@ -107,7 +86,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     private void initView() {
         list = new ArrayList<>();
-        fragmentManager = getSupportFragmentManager();
+        dateModelList = new ArrayList<>();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         if (userModel != null) {
@@ -139,10 +118,13 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recViewCategory.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        binding.recViewCategory.setAdapter(new TimeAdapter(list, this));
+        adapter = new TimeAdapter(dateModelList, this);
+        binding.recViewCategory.setAdapter(adapter);
         binding.progBarCategory.setVisibility(View.GONE);
         binding.progBar.setVisibility(View.GONE);
-        binding.recView.setAdapter(new ReservisionAdapter(list, this));
+        reservisionAdapter=new ReservisionAdapter(list,this);
+        binding.recView.setAdapter(reservisionAdapter);
+        binding.swipeRefresh.setOnRefreshListener(this::getDates);
 //        adapter = new MainCategoryAdapter(mainDepartmentsList, this);
 //        binding.recView.setAdapter(adapter);
 
@@ -157,11 +139,157 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         if (userModel != null) {
 //            EventBus.getDefault().register(this);
 //            getNotificationCount();
-//            updateTokenFireBase();
+            updateTokenFireBase();
 //            updateLocation();
         }
+        getDates();
+
+    }
+
+    private void getDates() {
+//        Log.e("dlkkdkdk",userModel.getUser().getId()+"");
+        binding.swipeRefresh.setRefreshing(false);
+        try {
+            binding.progBarCategory.setVisibility(View.VISIBLE);
+
+            if (userModel == null) {
+                binding.progBarCategory.setVisibility(View.GONE);
+                binding.swipeRefresh.setRefreshing(false);
+
+                return;
+            }
+            Api.getService(Tags.base_url)
+                    .getDates(lang)
+                    .enqueue(new Callback<DateDataModel>() {
+                        @Override
+                        public void onResponse(Call<DateDataModel> call, Response<DateDataModel> response) {
+                            binding.progBarCategory.setVisibility(View.GONE);
+                            binding.swipeRefresh.setRefreshing(false);
+                            if (response.isSuccessful() && response.body() != null) {
+                                // Log.e("suuuu",response.body().getStatus()+"");
+                                if (response.body().getStatus() == 200) {
+                                    //Log.e("llll",response.body().getData().size()+"");
+                                    if (response.body().getData().size() > 0) {
+                                        dateModelList.clear();
+                                        dateModelList.addAll(response.body().getData());
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        dateModelList.clear();
+                                        adapter.notifyDataSetChanged();
+                                        binding.llNoData.setVisibility(View.VISIBLE);
+                                    }
+                                } else {
+                                }
+                            } else {
+                                binding.progBarCategory.setVisibility(View.GONE);
+                                binding.swipeRefresh.setRefreshing(false);
+
+                                if (response.code() == 500) {
 
 
+                                } else {
+
+                                    try {
+
+                                        Log.e("errorsss", response.code() + "_" + response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DateDataModel> call, Throwable t) {
+                            try {
+                                binding.progBarCategory.setVisibility(View.GONE);
+                                binding.swipeRefresh.setRefreshing(false);
+
+                                if (t.getMessage() != null) {
+                                    Log.e("errorsss", t.getMessage());
+                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    } else {
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+
+        }
+    }
+    public void getData(String date) {
+
+        binding.progBar.setVisibility(View.VISIBLE);
+        binding.llNoData.setVisibility(View.GONE);
+        list.clear();
+        reservisionAdapter.notifyDataSetChanged();
+        if (userModel == null) {
+            binding.swipeRefresh.setRefreshing(false);
+            binding.progBar.setVisibility(View.GONE);
+            binding.llNoData.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        Api.getService(Tags.base_url).myReservation(lang, userModel.getUser().getId()+"",date).
+                enqueue(new Callback<ReservationDataModel>() {
+                    @Override
+                    public void onResponse(Call<ReservationDataModel> call, Response<ReservationDataModel> response) {
+                        binding.progBar.setVisibility(View.GONE);
+                        binding.swipeRefresh.setRefreshing(false);
+
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null && response.body().getData() != null && response.body().getStatus() == 200) {
+                                if (response.body().getData().size() > 0) {
+                                    binding.llNoData.setVisibility(View.GONE);
+                                    list.addAll(response.body().getData());
+                                    reservisionAdapter.notifyDataSetChanged();
+                                } else {
+                                    binding.llNoData.setVisibility(View.VISIBLE);
+
+                                }
+                            }
+
+
+                        } else {
+                            binding.llNoData.setVisibility(View.VISIBLE);
+
+
+                            try {
+                                Log.e("error_code", response.code() + "_");
+                            } catch (NullPointerException e) {
+
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ReservationDataModel> call, Throwable t) {
+                        try {
+                            binding.llNoData.setVisibility(View.VISIBLE);
+
+                            binding.swipeRefresh.setRefreshing(false);
+                            binding.progBar.setVisibility(View.GONE);
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage());
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    //     Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else if (t.getMessage().toLowerCase().contains("socket") || t.getMessage().toLowerCase().contains("canceled")) {
+                                } else {
+                                    //  Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
 
@@ -252,136 +380,107 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 //    }
 
 
-//    private void updateTokenFireBase() {
-//
-//
-//        FirebaseInstanceId.getInstance()
-//                .getInstanceId().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                String token = task.getResult().getToken();
-//
-//                try {
-//
-//                    try {
-//
-//                        Api.getService(Tags.base_url)
-//                                .updatePhoneToken("Bearer " + userModel.getData().getToken(), token, userModel.getData().getId(), 1)
-//                                .enqueue(new Callback<ResponseBody>() {
-//                                    @Override
-//                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                                        if (response.isSuccessful() && response.body() != null) {
-//                                            Log.e("token", "updated successfully");
-//                                        } else {
-//                                            try {
-//
-//                                                Log.e("error", response.code() + "_" + response.errorBody().string());
-//                                            } catch (IOException e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                                        try {
-//
-//                                            if (t.getMessage() != null) {
-//                                                Log.e("error", t.getMessage());
-//                                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-//                                                    Toast.makeText(HomeActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
-//                                                } else {
-//                                                    Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                                                }
-//                                            }
-//
-//                                        } catch (Exception e) {
-//                                        }
-//                                    }
-//                                });
-//                    } catch (Exception e) {
-//
-//
-//                    }
-//                } catch (Exception e) {
-//
-//
-//                }
-//
-//            }
-//        });
-//    }
+    private void updateTokenFireBase() {
+        FirebaseInstanceId.getInstance()
+                .getInstanceId()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        String token = task.getResult().getToken();
+                        try {
+                            Api.getService(Tags.base_url)
+                                    .updatePhoneToken(token, userModel.getUser().getId(), "android")
+                                    .enqueue(new Callback<StatusResponse>() {
+                                        @Override
+                                        public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                                            if (response.isSuccessful() && response.body() != null && response.body().getStatus() == 200) {
+                                                userModel.getUser().setFirebaseToken(token);
+                                                preferences.create_update_userdata(HomeActivity.this, userModel);
 
+                                                Log.e("token", "updated successfully");
+                                            } else {
+                                                try {
 
+                                                    Log.e("errorToken", response.code() + "_" + response.errorBody().string());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<StatusResponse> call, Throwable t) {
+                                            try {
+
+                                                if (t.getMessage() != null) {
+                                                    Log.e("errorToken2", t.getMessage());
+
+                                                }
+
+                                            } catch (Exception e) {
+                                            }
+                                        }
+                                    });
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void logout() {
-//        if (userModel != null) {
-//
-//
-//            ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-//            dialog.show();
-//
-//
-//            FirebaseInstanceId.getInstance()
-//                    .getInstanceId().addOnCompleteListener(task -> {
-//                if (task.isSuccessful()) {
-//                    String token = task.getResult().getToken();
-//
-//                    Api.getService(Tags.base_url)
-//                            .logout("Bearer " + userModel.getData().getToken(), token)
-//                            .enqueue(new Callback<ResponseBody>() {
-//                                @Override
-//                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                                    dialog.dismiss();
-//                                    if (response.isSuccessful()) {
-//                                        preferences.clear(HomeActivity.this);
-//                                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//                                        if (manager != null) {
-//                                            manager.cancel(Tags.not_tag, Tags.not_id);
-//                                        }
-//                                        navigateToSignInActivity();
-//
-//
-//                                    } else {
-//                                        dialog.dismiss();
-//                                        try {
-//                                            Log.e("error", response.code() + "__" + response.errorBody().string());
-//                                        } catch (IOException e) {
-//                                            e.printStackTrace();
-//                                        }
-//
-//                                        if (response.code() == 500) {
-//                                            Toast.makeText(HomeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-//                                        } else {
-//                                            Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                                    try {
-//                                        dialog.dismiss();
-//                                        if (t.getMessage() != null) {
-//                                            Log.e("error", t.getMessage() + "__");
-//
-//                                            if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-//                                                Toast.makeText(HomeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-//                                            } else {
-//                                                Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        }
-//                                    } catch (Exception e) {
-//                                        Log.e("Error", e.getMessage() + "__");
-//                                    }
-//                                }
-//                            });
-//
-//                }
-//            });
-//
-//
-//        } else {
-//            navigateToSignInActivity();
-//        }
+
+        if (userModel == null) {
+            finish();
+            return;
+        }
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .logout(userModel.getUser().getId() + "", userModel.getUser().getFirebaseToken())
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()) {
+                            if (response.body() != null && response.body().getStatus() == 200) {
+                                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                manager.cancel(Tags.not_tag, Tags.not_id);
+                                navigateToSignInActivity();
+                            }
+
+                        } else {
+                            dialog.dismiss();
+                            try {
+                                Log.e("error", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (response.code() == 500) {
+                            } else {
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                } else {
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
 
     }
 
@@ -447,6 +546,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void notification() {
+
         Intent intent = new Intent(HomeActivity.this, NotificationActivity.class);
         startActivity(intent);
     }
