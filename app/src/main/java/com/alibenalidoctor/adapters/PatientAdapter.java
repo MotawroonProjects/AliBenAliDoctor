@@ -14,18 +14,19 @@ import com.alibenalidoctor.R;
 import com.alibenalidoctor.activities_fragments.activity_patients.PatientsActivity;
 import com.alibenalidoctor.databinding.PatientRowBinding;
 import com.alibenalidoctor.databinding.ReservisionRowBinding;
+import com.alibenalidoctor.models.PatientModel;
 
 import java.util.List;
 
 public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<PatientModel> list;
     private Context context;
     private LayoutInflater inflater;
     private int i = 0;
 
     //private Fragment_Main fragment_main;
-    public PatientAdapter(List<Object> list, Context context) {
+    public PatientAdapter(List<PatientModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -49,6 +50,7 @@ public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        myHolder.binding.setModel(list.get(position));
         myHolder.binding.tvDetials.setPaintFlags(myHolder.binding.tvDetials.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +59,12 @@ public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 patientsActivit.show();
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return 16;
+        return list.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

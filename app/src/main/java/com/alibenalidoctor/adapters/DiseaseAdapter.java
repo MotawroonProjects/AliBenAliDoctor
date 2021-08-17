@@ -1,8 +1,6 @@
 package com.alibenalidoctor.adapters;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,22 +9,23 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.databinding.DiseaseRowBinding;
 import com.alibenalidoctor.databinding.ImagesRowBinding;
-import com.alibenalidoctor.databinding.PatientRowBinding;
+import com.alibenalidoctor.models.DiseasesModel;
 import com.alibenalidoctor.models.FileModel;
-import com.alibenalidoctor.models.ReservationModel;
+import com.alibenalidoctor.models.ReservationDiseasesModel;
 
 import java.util.List;
 
-public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DiseaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<FileModel> list;
+    private List<ReservationDiseasesModel> list;
     private Context context;
     private LayoutInflater inflater;
     private int i = 0;
 
     //private Fragment_Main fragment_main;
-    public ImagesAdapter(List<FileModel> list, Context context) {
+    public DiseaseAdapter(List<ReservationDiseasesModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -40,7 +39,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        ImagesRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.images_row, parent, false);
+        DiseaseRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.disease_row, parent, false);
         return new MyHolder(binding);
 
 
@@ -50,8 +49,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-        myHolder.binding.setModel(list.get(position));
-
+        myHolder.binding.setModel(list.get(position).getDiseases());
     }
 
     @Override
@@ -60,9 +58,9 @@ public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        public ImagesRowBinding binding;
+        public DiseaseRowBinding binding;
 
-        public MyHolder(@NonNull ImagesRowBinding binding) {
+        public MyHolder(@NonNull DiseaseRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

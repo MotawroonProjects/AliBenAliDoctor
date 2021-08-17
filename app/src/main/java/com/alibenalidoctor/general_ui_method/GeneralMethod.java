@@ -11,6 +11,7 @@ import androidx.databinding.BindingAdapter;
 import com.alibenalidoctor.R;
 import com.alibenalidoctor.share.Time_Ago;
 import com.alibenalidoctor.tags.Tags;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -94,7 +95,10 @@ public class GeneralMethod {
         String d = Time_Ago.getTimeAgo(date2 * 1000, view.getContext());
         view.setText(d);
     }
-
+    @BindingAdapter("rate")
+    public static void rate(SimpleRatingBar ratingBar, double rate) {
+        ratingBar.setRating((float) rate);
+    }
 
 }
 

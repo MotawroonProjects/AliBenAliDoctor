@@ -7,6 +7,7 @@ public class DateModel implements Serializable {
     private String date;
     private String day_number;
     private String day_text;
+    private String month;
 
     public String getDate() {
         return date;
@@ -18,5 +19,9 @@ public class DateModel implements Serializable {
 
     public String getDay_text() {
         return day_text;
+    }
+
+    public String getMonth() {
+        return month;
     }
 }

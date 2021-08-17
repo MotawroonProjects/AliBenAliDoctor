@@ -28,7 +28,9 @@
             type="com.alibenalidoctor.interfaces.Listeners.HomeListener" />
 
         <import type="android.view.View" />
-
+<variable
+    name="model"
+    type="com.alibenalidoctor.models.UserModel" />
 
     </data>
 
@@ -233,14 +235,10 @@
 
             >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:fillViewport="true"
                 android:fitsSystemWindows="true">
 
@@ -252,7 +250,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                       >
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/image"
@@ -266,7 +264,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/user_avatar"
+                            image="@{model.User.image}"
                             tools:ignore="RtlCompat" />
 
                         <LinearLayout
@@ -288,7 +286,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="10dp"
                                 android:gravity="center"
-                                android:text="محمود جمال الكومي"
+                                android:text="@{model.user.name}"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -302,7 +300,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:text="0"
+                                    android:text='@{model.user.rate+""}'
                                     android:textColor="@color/colorred"
                                     android:textSize="16sp" />
 
@@ -313,16 +311,33 @@
                                     android:text="/5"
                                     android:textColor="@color/gray6"
                                     android:textSize="12sp" />
-
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
+                                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:srb_isIndicator="true"
+                                    app:srb_numberOfStars="1"
+                                    app:srb_starBackgroundColor="@color/gray5"
+                                    app:srb_starBorderWidth="1"
+                                    app:srb_starSize="13dp"
+                                    rate="@{model.user.rate}"
                                     android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:padding="3dp"
-                                    app:srcCompat="@drawable/ic_star"
-                                    app:tint="@color/rate" />
+                                    app:srb_starsSeparation="3dp"
+                                    app:srb_borderColor="@color/gray5"
+                                    app:srb_fillColor="@color/rate_color"
+                                    app:srb_rating="0"
+
+                                    />
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="24dp"-->
+<!--                                    android:layout_height="24dp"-->
+<!--                                    android:layout_gravity="center_vertical"-->
+<!--                                    android:layout_marginStart="5dp"-->
+<!--                                    android:layout_marginEnd="5dp"-->
+<!--                                    android:padding="3dp"-->
+<!--                                    -->
+<!--                                    app:srcCompat="@drawable/ic_star"-->
+<!--                                    app:tint="@color/rate" />-->
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -529,6 +544,38 @@
 
                                     android:textSize="14sp" />
                             </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/llogout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="60dp"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="20dp"
+                                android:onClick="@{()->action.logout()}"
+
+                                >
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    app:srcCompat="@drawable/ic_logout"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    android:rotation='@{lang.equals("en")?180:0}'
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:text="@string/logout"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    />
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -537,41 +584,7 @@
 
                 </LinearLayout>
             </ScrollView>
-                <LinearLayout
-                    android:id="@+id/llogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="60dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp"
-                    android:onClick="@{()->action.logout()}"
 
-                    >
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_logout"
-                        app:tint="@color/white"
-                        android:clickable="false"
-                        android:longClickable="false"
-                        android:rotation='@{lang.equals("en")?180:0}'
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:text="@string/logout"
-                        android:clickable="false"
-                        android:longClickable="false"
-                        />
-                </LinearLayout>
-
-            </LinearLayout>
 
         </com.google.android.material.navigation.NavigationView>
 

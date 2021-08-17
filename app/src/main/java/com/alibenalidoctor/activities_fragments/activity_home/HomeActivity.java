@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         if (userModel != null) {
-            //   binding.setUsermodel(userModel);
+            binding.setModel(userModel);
         }
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
@@ -122,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         binding.recViewCategory.setAdapter(adapter);
         binding.progBarCategory.setVisibility(View.GONE);
         binding.progBar.setVisibility(View.GONE);
-        reservisionAdapter=new ReservisionAdapter(list,this);
+        reservisionAdapter = new ReservisionAdapter(list, this);
         binding.recView.setAdapter(reservisionAdapter);
         binding.swipeRefresh.setOnRefreshListener(this::getDates);
 //        adapter = new MainCategoryAdapter(mainDepartmentsList, this);
@@ -220,6 +220,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
         }
     }
+
     public void getData(String date) {
 
         binding.progBar.setVisibility(View.VISIBLE);
@@ -232,8 +233,8 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
             binding.llNoData.setVisibility(View.VISIBLE);
             return;
         }
-
-        Api.getService(Tags.base_url).myReservation(lang, userModel.getUser().getId()+"",date).
+        Log.e("ldkldkkd", userModel.getUser().getId() + " " + date + " " + lang);
+        Api.getService(Tags.base_url).myReservation(lang, userModel.getUser().getId() + "", date).
                 enqueue(new Callback<ReservationDataModel>() {
                     @Override
                     public void onResponse(Call<ReservationDataModel> call, Response<ReservationDataModel> response) {
@@ -558,11 +559,12 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         launcher.launch(intent);
     }
 
-    public void show() {
+    public void show(int reservid) {
 //        binding.recView.setVisibility(View.GONE);
 //        binding.llNoData.setVisibility(View.VISIBLE);
         Intent intent = new Intent(HomeActivity.this, ReservDetialsActivity.class);
         intent.putExtra("type", "reserv");
+        intent.putExtra("data", reservid + "");
         startActivity(intent);
     }
 }

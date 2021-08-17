@@ -2,9 +2,11 @@ package com.alibenalidoctor.services;
 
 import com.alibenalidoctor.models.DateDataModel;
 import com.alibenalidoctor.models.NotificationDataModel;
+import com.alibenalidoctor.models.PatinetDataModel;
 import com.alibenalidoctor.models.PlaceGeocodeData;
 import com.alibenalidoctor.models.PlaceMapDetailsData;
 import com.alibenalidoctor.models.ReservationDataModel;
+import com.alibenalidoctor.models.SingleReservationDataModel;
 import com.alibenalidoctor.models.StatusResponse;
 import com.alibenalidoctor.models.UserModel;
 
@@ -98,6 +100,20 @@ public interface Service {
     Call<ReservationDataModel> myReservation(@Header("language") String language,
                                              @Query("doctor_id") String doctor_id,
                                              @Query("date") String date
+
+
+    );
+    @GET("api/one_reservation")
+    Call<SingleReservationDataModel> getSingleReservison(@Header("language") String language,
+                                                         @Query("reservation_id") String reservation_id
+
+
+    );
+    @GET("api/patients")
+    Call<PatinetDataModel> myPatient(@Header("language") String language,
+                                     @Query("doctor_id") String doctor_id,
+                                     @Query("word") String word
+
 
 
     );

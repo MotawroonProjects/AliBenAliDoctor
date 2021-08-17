@@ -72,8 +72,12 @@
     <string name="private_files">ملفات خاصه</string>
     <string name="call_now">اتصل الان</string>
     <string name="change_password">تغيير كلمة المرور</string>
-    <string name="incorrect_phone_pass">InCorrect Phone Password</string>
-    <string name="wait">Wait</string>
-    <string name="logout">Logout</string>
+    <string name="incorrect_phone_pass">رقم جوال او كلمة مرور خاطئ</string>
+    <string name="wait">انتظر</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="reservtype">نوع الحجز</string>
+    <string name="audio">مكالمة</string>
+    <string name="video">فيديو</string>
+    <string name="lastdi">تاريخ اخر كشف : </string>
 
 </resources>

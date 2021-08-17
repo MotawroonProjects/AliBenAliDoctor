@@ -28,7 +28,8 @@ public class ReservationModel implements Serializable {
 
     private HourModel hour;
     private UserModel.User user;
-
+    private List<ReservationDiseasesModel> reservation_diseases;
+    private List<FileModel> files;
     public int getId() {
         return id;
     }
@@ -124,5 +125,13 @@ public class ReservationModel implements Serializable {
 
     public UserModel.User getUser() {
         return user;
+    }
+
+    public List<ReservationDiseasesModel> getReservation_diseases() {
+        return reservation_diseases;
+    }
+
+    public List<FileModel> getFiles() {
+        return files;
     }
 }

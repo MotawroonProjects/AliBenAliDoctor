@@ -55,9 +55,10 @@ public class ReservisionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(context instanceof HomeActivity){
                 HomeActivity activity = (HomeActivity) context;
-                activity.show();
-            }
+                activity.show(list.get(holder.getLayoutPosition()).getId());
+            }}
         });
     }
 

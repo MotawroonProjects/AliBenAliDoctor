@@ -9,6 +9,10 @@
         <variable
             name="lang"
             type="String" />
+<import type="android.view.View"
+/>        <variable
+            name="model"
+            type="com.alibenalidoctor.models.ReservationModel" />
     </data>
 
     <FrameLayout
@@ -70,10 +74,13 @@
                 android:background="@color/gray4" />
 
             <ScrollView
+                android:id="@+id/scroll"
+
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,7 +149,7 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="عماد مجدي"
+                                        android:text="@{model.name}"
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -153,7 +160,7 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="0123456789"
+                                        android:text="@{model.phone}"
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -219,7 +226,7 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="الاثنين 3 يونيو"
+                                        android:text='@{model.date.day_text+" "+model.date.day_number+" "+model.date.month}'
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -230,7 +237,7 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="2:15 م"
+                                        android:text='@{model.hour.phone_hour+" "+model.hour.period}'
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -296,23 +303,42 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="الاثنين 3 يونيو"
+                                        android:text="@string/reservtype"
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
 
-                                    <TextView
+                                    <LinearLayout
+
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-
-                                        android:layout_marginTop="5dp"
-                                        android:gravity="center"
-                                        android:text="2:15 م"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+                                        android:layout_height="wrap_content">
 
 
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginTop="5dp"
+
+                                            android:src='@{model.call_type.equals("audio")?@drawable/ic_call:@drawable/ic_video}'
+                                            app:tint="@color/colorAccent"
+                                            tools:ignore="RtlCompat" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+
+                                            android:layout_marginTop="5dp"
+                                            android:gravity="center"
+
+                                            android:text='@{model.call_type.equals("audio")?@string/audio:@string/video}'
+
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                    </LinearLayout>
                                 </LinearLayout>
 
 
@@ -413,7 +439,7 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="@string/male"
+                                        android:text="@{model.gender}"
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -490,7 +516,7 @@
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="22 سنه"
+                                        android:text="@{model.age}"
                                         android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
@@ -505,7 +531,10 @@
                                     android:background="@color/gray8"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/view5"
-                                    app:layout_constraintTop_toBottomOf="@+id/llllll" />
+                                    app:layout_constraintTop_toBottomOf="@+id/llllll"
+                                    android:visibility='@{model.reservation_diseases.size()>0?View.VISIBLE:View.GONE,default=gone}'
+
+                                    />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -513,6 +542,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
+                                android:visibility='@{model.reservation_diseases.size()>0?View.VISIBLE:View.GONE,default=gone}'
+
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -560,16 +591,16 @@
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
 
-                                    <TextView
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/recViewdisease"
+
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
 
                                         android:layout_marginTop="5dp"
                                         android:gravity="center"
-                                        android:text="سكر , ضغط"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+
+                                        />
 
 
                                 </LinearLayout>
@@ -582,6 +613,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
                                 android:gravity="center"
+                                android:visibility='@{model.files.size()>0?View.VISIBLE:View.GONE,default=gone}'
+
                                 android:text="@string/private_files"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
@@ -609,6 +642,11 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </FrameLayout>
 </layout>
 
