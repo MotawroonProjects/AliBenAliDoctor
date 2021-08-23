@@ -68,7 +68,12 @@ public class ProfileActivity extends AppCompatActivity {
         adapter = new RateAdapter(list, this);
         binding.recView.setAdapter(adapter);
 
+binding.imagedit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
+    }
+});
         binding.llBack.setOnClickListener(view -> finish());
         getDoctorById();
     }
