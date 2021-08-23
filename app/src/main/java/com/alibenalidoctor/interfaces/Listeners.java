@@ -36,11 +36,18 @@ public interface Listeners {
 
         void langChange();
         void logout();
+        void onAbout();
+        void onTerms();
+
     }
 
     interface BackListener {
         void back();
     }
 
+    interface DeleteDiseaseListener{
+        void deleteImage(int pos);
+
+    }
 
 }

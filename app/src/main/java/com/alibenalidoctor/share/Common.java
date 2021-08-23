@@ -230,7 +230,14 @@ public class Common {
         return part;
 
     }
+    public static MultipartBody.Part getMultiPartFromPath( String path, String partName) {
+        File file = new File(path);
+        RequestBody requestBody = getRequestBodyImage(file);
+        String ext = path.substring(path.lastIndexOf("."));
+        MultipartBody.Part part = MultipartBody.Part.createFormData(partName, System.currentTimeMillis()+ext, requestBody);
+        return part;
 
+    }
     public static MultipartBody.Part getMultiPartVideo(Context context, Uri uri, String partName) {
         File file = getFileFromImagePath(getImagePath(context, uri));
         String name = System.currentTimeMillis() + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));

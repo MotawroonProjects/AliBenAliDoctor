@@ -1,5 +1,6 @@
 package com.alibenalidoctor.activities_fragments.activity_reservdetials;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_about_us.AboutUsActivity;
+import com.alibenalidoctor.activities_fragments.activity_add_report.AddReportActivity;
 import com.alibenalidoctor.adapters.DiseaseAdapter;
 import com.alibenalidoctor.adapters.ImagesAdapter;
 import com.alibenalidoctor.databinding.ActivityReservdetialsBinding;
@@ -21,11 +24,20 @@ import com.alibenalidoctor.models.FileModel;
 import com.alibenalidoctor.models.ReservationDiseasesModel;
 import com.alibenalidoctor.models.ReservationModel;
 import com.alibenalidoctor.models.SingleReservationDataModel;
+import com.alibenalidoctor.models.StatusResponse;
 import com.alibenalidoctor.models.UserModel;
 import com.alibenalidoctor.preferences.Preferences;
 import com.alibenalidoctor.remote.Api;
+import com.alibenalidoctor.share.Common;
 import com.alibenalidoctor.tags.Tags;
 
+import org.jitsi.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
+import org.jitsi.meet.sdk.JitsiMeetUserInfo;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -76,9 +88,20 @@ public class ReservDetialsActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
-        if (type.equals("patient")) {
-            binding.btnCall.setVisibility(View.GONE);
-        }
+        binding.flCall.setOnClickListener(v -> {
+            boolean video = true;
+            if (type.equals("audio")) {
+                video = false;
+            }
+
+            startChat(video);
+        });
+
+        binding.flAddReport.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddReportActivity.class);
+            intent.putExtra("reservid", reservid);
+            startActivity(intent);
+        });
         imagesAdapter = new ImagesAdapter(list, this);
         diseaseAdapter = new DiseaseAdapter(diseasesModelList, this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -91,12 +114,7 @@ public class ReservDetialsActivity extends AppCompatActivity {
                 finish();
             }
         });
-if(type.equals("patient")){
-
-}
-else {
-    getSinglereservison();
-}
+        getSinglereservison();
     }
 
     private void getDataFromIntent() {
@@ -105,6 +123,30 @@ else {
             type = intent.getStringExtra("type");
             reservid = intent.getStringExtra("data");
 
+        }
+    }
+
+    private void startChat(boolean video) {
+        try {
+            String roomName = "ali_ben_ali_app" + reservid;
+            JitsiMeetUserInfo info = new JitsiMeetUserInfo();
+            info.setAvatar(new URL(Tags.IMAGE_URL + userModel.getUser().getImage()));
+            info.setDisplayName(userModel.getUser().getName());
+
+            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
+                    .setServerURL(new URL("https://meet.jit.si"))
+                    .setRoom(roomName)
+                    .setUserInfo(info)
+                    .setAudioMuted(false)
+                    .setVideoMuted(false)
+                    .setAudioOnly(video)
+                    .setWelcomePageEnabled(false)
+                    .build();
+
+
+            JitsiMeetActivity.launch(this, options);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -179,25 +221,66 @@ else {
     }
 
     private void updatedata(ReservationModel data) {
-        Log.e("kdkdj",data.getId()+"");
+        Log.e("kdkdj", data.getId() + "");
         binding.setModel(data);
-      if(data.getFiles().size()>0){
-          list.clear();
-          list.addAll(data.getFiles());
-          imagesAdapter.notifyDataSetChanged();
-      }
-      else {
+        if (data.getFiles().size() > 0) {
+            list.clear();
+            list.addAll(data.getFiles());
+            imagesAdapter.notifyDataSetChanged();
+        } else {
 
-      }
-      if(data.getReservation_diseases().size()>0){
-          diseasesModelList.clear();
-          diseasesModelList.addAll(data.getReservation_diseases());
-          diseaseAdapter.notifyDataSetChanged();
-      }
+        }
+        if (data.getReservation_diseases().size() > 0) {
+            diseasesModelList.clear();
+            diseasesModelList.addAll(data.getReservation_diseases());
+            diseaseAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onBackPressed() {
         finish();
     }
+    private void endReservation() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+
+
+        Api.getService(Tags.base_url)
+                .endReservation(reservid)
+                .enqueue(new Callback<StatusResponse>() {
+                    @Override
+                    public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+
+                        } else {
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusResponse> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
 }

@@ -10,6 +10,8 @@ import com.alibenalidoctor.models.SingleReservationDataModel;
 import com.alibenalidoctor.models.StatusResponse;
 import com.alibenalidoctor.models.UserModel;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -41,8 +43,8 @@ public interface Service {
     @FormUrlEncoded
     @POST("api/login_doctor")
     Call<UserModel> login(
-                          @Field("phone") String phone,
-                          @Field("password") String password
+            @Field("phone") String phone,
+            @Field("password") String password
 
     );
 
@@ -80,7 +82,7 @@ public interface Service {
     );
 
     @FormUrlEncoded
-    @POST("api/update-firebase")
+    @POST("api/inser_token_doctor")
     Call<StatusResponse> updatePhoneToken(
             @Field("firebase_token") String firebase_token,
             @Field("doctor_id") int doctor_id,
@@ -92,10 +94,12 @@ public interface Service {
             @Header("language") String language,
             @Query("doctor_id") int doctor_id
     );
+
     @GET("api/reservations_dates")
     Call<DateDataModel> getDates(
             @Header("language") String language
     );
+
     @GET("api/doctor_reservations")
     Call<ReservationDataModel> myReservation(@Header("language") String language,
                                              @Query("doctor_id") String doctor_id,
@@ -103,18 +107,50 @@ public interface Service {
 
 
     );
+
     @GET("api/one_reservation")
     Call<SingleReservationDataModel> getSingleReservison(@Header("language") String language,
                                                          @Query("reservation_id") String reservation_id
 
 
     );
+
     @GET("api/patients")
     Call<PatinetDataModel> myPatient(@Header("language") String language,
                                      @Query("doctor_id") String doctor_id,
                                      @Query("word") String word
 
 
+    );
 
+
+    @FormUrlEncoded
+    @POST("api/contact")
+    Call<StatusResponse> contactUs(@Header("language") String language,
+                                   @Field("name") String name,
+                                   @Field("email") String email,
+                                   @Field("phone") String phone,
+                                   @Field("message") String message
+    );
+
+    @FormUrlEncoded
+    @POST("api/add_reservation_report")
+    Call<StatusResponse> addReport(@Field("reservation_id") String reservation_id,
+                                   @Field("report_text") String report_text
+
+
+    );
+
+    @Multipart
+    @POST("api/add_reservation_report")
+    Call<StatusResponse> addReport(@Part("reservation_id") RequestBody reservation_id,
+                                   @Part("report_text") RequestBody report_text,
+                                   @Part List<MultipartBody.Part> images
+
+
+    );
+    @FormUrlEncoded
+    @POST("api/end_reservation")
+    Call<StatusResponse> endReservation(@Field("reservation_id") String reservation_id
     );
 }

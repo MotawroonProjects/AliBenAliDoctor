@@ -30,6 +30,10 @@ public class ReservationModel implements Serializable {
     private UserModel.User user;
     private List<ReservationDiseasesModel> reservation_diseases;
     private List<FileModel> files;
+
+    private String call_start;
+    private String can_end;
+
     public int getId() {
         return id;
     }
@@ -133,5 +137,13 @@ public class ReservationModel implements Serializable {
 
     public List<FileModel> getFiles() {
         return files;
+    }
+
+    public String getCall_start() {
+        return call_start;
+    }
+
+    public String getCan_end() {
+        return can_end;
     }
 }

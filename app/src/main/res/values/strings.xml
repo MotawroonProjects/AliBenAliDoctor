@@ -79,4 +79,13 @@
     <string name="audio">Audio</string>
     <string name="video">Video</string>
     <string name="lastdi">"Last detection date:</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+    <string name="suc">Done</string>
+    <string name="add_report">Add Report</string>
+    <string name="call_method">Call Method</string>
+    <string name="start_chat">start call</string>
+    <string name="call">call</string>
+
 </resources>

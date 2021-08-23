@@ -27,6 +27,15 @@
         tools:targetApi="m">
 
         <activity
+            android:name=".activities_fragments.activity_add_report.AddReportActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activities_fragments.activity_about_us.AboutUsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <activity
             android:name=".activities_fragments.activity_map.MapActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

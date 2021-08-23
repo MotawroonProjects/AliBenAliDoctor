@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_about_us.AboutUsActivity;
 import com.alibenalidoctor.activities_fragments.activity_language.LanguageActivity;
 import com.alibenalidoctor.activities_fragments.activity_login.LoginActivity;
 import com.alibenalidoctor.activities_fragments.activity_notification.NotificationActivity;
@@ -485,7 +486,19 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     }
 
+    @Override
+    public void onAbout() {
+        Intent intent = new Intent(this, AboutUsActivity.class);
+        intent.putExtra("type", 1);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onTerms() {
+        Intent intent = new Intent(this, AboutUsActivity.class);
+        intent.putExtra("type", 2);
+        startActivity(intent);
+    }
     public void refreshActivity(String lang) {
         Paper.book().write("lang", lang);
         Language.setNewLocale(this, lang);
