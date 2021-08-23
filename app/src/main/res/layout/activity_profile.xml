@@ -9,6 +9,10 @@
         <variable
             name="lang"
             type="String" />
+
+        <variable
+            name="model"
+            type="com.alibenalidoctor.models.UserModel" />
     </data>
 
     <FrameLayout
@@ -19,7 +23,7 @@
         >
 
         <LinearLayout
-
+            android:id="@+id/llData"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color1"
@@ -115,7 +119,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="0"
+                                        android:text='@{model.user.rate+""}'
                                         android:textColor="@color/colorred"
                                         android:textSize="15sp" />
 
@@ -128,14 +132,29 @@
 
                                         />
 
-                                    <ImageView
-                                        android:layout_width="24dp"
-                                        android:layout_height="24dp"
-                                        android:layout_marginStart="5dp"
-                                        android:layout_marginEnd="5dp"
-                                        android:padding="5dp"
-                                        app:srcCompat="@drawable/ic_star"
-                                        app:tint="@color/rate" />
+                                    <!--                                    <ImageView-->
+                                    <!--                                        android:layout_width="24dp"-->
+                                    <!--                                        android:layout_height="24dp"-->
+                                    <!--                                        android:layout_marginStart="5dp"-->
+                                    <!--                                        android:layout_marginEnd="5dp"-->
+                                    <!--                                        android:padding="5dp"-->
+                                    <!--                                        app:srcCompat="@drawable/ic_star"-->
+                                    <!--                                        app:tint="@color/rate" />-->
+                                    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                                        rate="@{model.user.rate}"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        app:srb_borderColor="@color/rate_color"
+                                        app:srb_fillColor="@color/rate_color"
+                                        app:srb_isIndicator="true"
+                                        app:srb_numberOfStars="1"
+                                        app:srb_rating="0"
+                                        app:srb_starBackgroundColor="@color/rate_color"
+                                        app:srb_starBorderWidth="1"
+                                        app:srb_starSize="13dp"
+                                        app:srb_starsSeparation="3dp"
+
+                                        />
 
                                     <Space
                                         android:layout_width="0dp"
@@ -157,7 +176,7 @@
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="25dp"
                                     android:gravity="center"
-                                    android:text="Name"
+                                    android:text="@{model.user.name}"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
 
@@ -185,7 +204,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:paddingStart="5dp"
                                         android:paddingEnd="5dp"
-                                        android:text="أنف واذن"
+                                        android:text='@{model.user.category.replace("\r\n","")}'
                                         android:textColor="@color/black"
                                         android:textSize="13sp" />
 
@@ -197,7 +216,6 @@
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="8dp"
                                     android:gravity="center"
-                                    android:text="استاذ مساعد انف واذن وحنجرة جامعة الملك سلمان استشاري متخصص في الانف والاذن والحنجرة"
                                     android:textColor="@color/gray6"
                                     android:textSize="12sp"
 
@@ -242,7 +260,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:paddingStart="5dp"
                                         android:paddingEnd="5dp"
-                                        android:text="200 ريال"
+                                        android:text='@{model.user.price+@string/sar}'
                                         android:textColor="@color/colorred"
                                         android:textSize="13sp" />
 
@@ -267,6 +285,7 @@
                             app:layout_constraintTop_toTopOf="@id/cardViewData">
 
                             <com.makeramen.roundedimageview.RoundedImageView
+                                image="@{model.user.image}"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:riv_corner_radius="8dp"
@@ -278,6 +297,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
+                        android:visibility="gone"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="2dp"
                         app:contentPadding="5dp">
@@ -363,7 +383,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginEnd="5dp"
-                                    android:text="( من 20 زائر )"
+                                    android:text='@{"("+@string/from+(model.user.rates!=null?model.user.rates.size():0)+@string/visitor+")"}'
                                     android:textColor="@color/gray1"
                                     android:textSize="14sp" />
 
@@ -375,7 +395,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text='@{model.user.rate+""}'
                                     android:textColor="@color/colorred"
                                     android:textSize="15sp" />
 
@@ -388,14 +408,29 @@
 
                                     />
 
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:padding="5dp"
-                                    app:srcCompat="@drawable/ic_star"
-                                    app:tint="@color/rate" />
+                                <!--                                <ImageView-->
+                                <!--                                    android:layout_width="24dp"-->
+                                <!--                                    android:layout_height="24dp"-->
+                                <!--                                    android:layout_marginStart="5dp"-->
+                                <!--                                    android:layout_marginEnd="5dp"-->
+                                <!--                                    android:padding="5dp"-->
+                                <!--                                    app:srcCompat="@drawable/ic_star"-->
+                                <!--                                    app:tint="@color/rate" />-->
+                                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                                    rate="@{model.user.rate}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:srb_borderColor="@color/rate_color"
+                                    app:srb_fillColor="@color/rate_color"
+                                    app:srb_isIndicator="true"
+                                    app:srb_numberOfStars="1"
+                                    app:srb_rating="0"
+                                    app:srb_starBackgroundColor="@color/rate_color"
+                                    app:srb_starBorderWidth="1"
+                                    app:srb_starSize="13dp"
+                                    app:srb_starsSeparation="3dp"
+
+                                    />
 
 
                             </LinearLayout>
@@ -415,6 +450,11 @@
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </FrameLayout>
 </layout>
 

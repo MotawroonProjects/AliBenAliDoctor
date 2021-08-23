@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibenalidoctor.R;
 import com.alibenalidoctor.activities_fragments.activity_profile.ProfileActivity;
 import com.alibenalidoctor.databinding.RateRowBinding;
+import com.alibenalidoctor.models.RateModel;
 
 import java.util.List;
 
 public class RateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> list;
+    private List<RateModel> list;
     private Context context;
     private LayoutInflater inflater;
     private ProfileActivity activity;
 
-    public RateAdapter(List<Object> list, Context context) {
+    public RateAdapter(List<RateModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -45,14 +46,14 @@ public class RateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-        //myHolder.binding.setModel(list.get(position));
+        myHolder.binding.setModel(list.get(position));
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

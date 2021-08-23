@@ -10,7 +10,7 @@
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_login.xml" value="0.21800947867298578" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_notification.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_patients.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_profile.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_reservdetials.xml" value="0.25" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/activity_verification_code.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/disease_row.xml" value="0.26510416666666664" />
@@ -18,25 +18,10 @@
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/images_row.xml" value="0.12892603850050657" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/notification_row.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/patient_row.xml" value="0.16" />
+        <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/rate_row.xml" value="0.25" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/reservision_row.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/spinner_row.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/EL MOTWRON/AndroidStudioProjects/AliBenAliDoctor/app/src/main/res/layout/time_row.xml" value="0.11458333333333333" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/ic_chat.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/ic_close.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/ic_file_upload.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/ic_mail.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/ic_support.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/ic_video.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/drawable/rounded_gray2.xml" value="0.2203125" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/activity_about_us.xml" value="0.20092592592592592" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/activity_add_report.xml" value="0.19722222222222222" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/activity_contact_us.xml" value="0.19722222222222222" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/activity_home.xml" value="0.20092592592592592" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/activity_language.xml" value="0.20416666666666666" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/activity_reservdetials.xml" value="0.19722222222222222" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/file_row.xml" value="0.20416666666666666" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/fragment_sign_up3.xml" value="0.20416666666666666" />
-        <entry key="..\:/android/Projects/AliBenAliDoctor/app/src/main/res/layout/reservision_row.xml" value="0.19722222222222222" />
       </map>
     </option>
   </component>

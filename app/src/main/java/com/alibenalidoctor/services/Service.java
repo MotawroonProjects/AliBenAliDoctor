@@ -153,4 +153,10 @@ public interface Service {
     @POST("api/end_reservation")
     Call<StatusResponse> endReservation(@Field("reservation_id") String reservation_id
     );
+    @GET("api/doctor")
+    Call<UserModel> doctorById(@Header("language") String language,
+                                       @Query("doctor_id") String doctor_id
+
+
+    );
 }

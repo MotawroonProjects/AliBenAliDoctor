@@ -1,6 +1,7 @@
 package com.alibenalidoctor.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserModel extends StatusResponse implements Serializable{
 
@@ -42,6 +43,7 @@ public class UserModel extends StatusResponse implements Serializable{
         private String name;
         private String category;
         private String firebaseToken;
+        private List<RateModel> rates;
 
         public int getId() {
             return id;
@@ -153,6 +155,10 @@ public class UserModel extends StatusResponse implements Serializable{
 
         public void setFirebaseToken(String firebaseToken) {
             this.firebaseToken = firebaseToken;
+        }
+
+        public List<RateModel> getRates() {
+            return rates;
         }
     }
 

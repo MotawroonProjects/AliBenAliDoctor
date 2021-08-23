@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="model"
+            type="com.alibenalidoctor.models.RateModel" />
+    </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="230dp"
@@ -28,7 +34,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10/05/2021"
+                    date="@{model.created_at}"
                     android:textColor="@color/gray1"
                     android:textSize="12sp" />
 
@@ -45,6 +51,8 @@
                     app:srb_isIndicator="true"
                     app:srb_numberOfStars="5"
                     app:srb_rating="5"
+                    rate="@{model.rate}"
+
                     app:srb_starBackgroundColor="@color/gray5"
                     app:srb_starBorderWidth="1"
                     app:srb_starSize="13dp"
@@ -57,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
-                android:text="Name"
+                android:text="@{model.user.name}"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -67,7 +75,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:lines="3"
-                android:text="ممتاز"
+                android:text="@{model.title}"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 

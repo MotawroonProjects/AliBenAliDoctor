@@ -15,6 +15,7 @@ import com.alibenalidoctor.databinding.ImagesRowBinding;
 import com.alibenalidoctor.databinding.PatientRowBinding;
 import com.alibenalidoctor.models.FileModel;
 import com.alibenalidoctor.models.ReservationModel;
+import com.alibenalidoctor.tags.Tags;
 
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
+        Log.e("dldll", Tags.IMAGE_URL+list.get(position).getFile());
         myHolder.binding.setModel(list.get(position));
 
     }
