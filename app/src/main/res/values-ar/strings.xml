@@ -87,6 +87,8 @@
     <string name="call_method">طريقة الأتصال</string>
     <string name="start_chat">ابدأ الأتصال</string>
     <string name="call">اتصل </string>
+    <string name="end_reservation">انهاء الحجز</string>
+
     <string name="sar">ريال</string>
     <string name="from"> من </string>
     <string name="visitor">  زائر  </string>

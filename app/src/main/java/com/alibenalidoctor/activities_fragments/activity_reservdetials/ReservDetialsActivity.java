@@ -85,9 +85,8 @@ public class ReservDetialsActivity extends AppCompatActivity {
 
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
-        Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        binding.setLang(lang);
+
+        getSinglereservison();
         binding.flCall.setOnClickListener(v -> {
             boolean video = true;
             if (type.equals("audio")) {
@@ -102,6 +101,9 @@ public class ReservDetialsActivity extends AppCompatActivity {
             intent.putExtra("reservid", reservid);
             startActivity(intent);
         });
+        binding.flEndReservation.setOnClickListener(v -> {
+           endReservation();
+        });
         imagesAdapter = new ImagesAdapter(list, this);
         diseaseAdapter = new DiseaseAdapter(diseasesModelList, this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -114,7 +116,6 @@ public class ReservDetialsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        getSinglereservison();
     }
 
     private void getDataFromIntent() {
