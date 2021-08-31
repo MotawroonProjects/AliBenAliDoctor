@@ -236,6 +236,13 @@ public class ReservDetialsActivity extends AppCompatActivity {
             diseasesModelList.addAll(data.getReservation_diseases());
             diseaseAdapter.notifyDataSetChanged();
         }
+        if(type.equals("patient")){
+            binding.llcall.setVisibility(View.GONE);
+        }
+        else {
+            binding.llcall.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override

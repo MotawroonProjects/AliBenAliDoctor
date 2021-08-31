@@ -104,7 +104,7 @@ public class PatientsDetialsActivity extends AppCompatActivity {
 //        binding.recView.setVisibility(View.GONE);
 //        binding.llNoData.setVisibility(View.VISIBLE);
         Intent intent = new Intent(PatientsDetialsActivity.this, ReservDetialsActivity.class);
-        intent.putExtra("type", "reserv");
+        intent.putExtra("type", "patient");
         intent.putExtra("data", reservid + "");
         startActivity(intent);
     }
