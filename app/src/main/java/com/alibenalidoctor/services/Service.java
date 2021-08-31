@@ -159,4 +159,11 @@ public interface Service {
 
 
     );
+    @GET("api/patient_details")
+    Call<ReservationDataModel> patientDetails(@Header("language") String language,
+                                             @Query("doctor_id") String doctor_id,
+                                             @Query("user_id") String user_id
+
+
+    );
 }

@@ -39,7 +39,10 @@
             android:name=".activities_fragments.activity_map.MapActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-
+        <activity
+            android:name=".activities_fragments.activity_patients_detials.PatientsDetialsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <service
             android:name=".notifications.FireBaseMessaging"
             android:enabled="true"

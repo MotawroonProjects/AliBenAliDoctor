@@ -1,4 +1,4 @@
-package com.alibenalidoctor.activities_fragments.activity_patients;
+package com.alibenalidoctor.activities_fragments.activity_patients_detials;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,23 +8,23 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-
 import com.alibenalidoctor.R;
-import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
-import com.alibenalidoctor.activities_fragments.activity_patients_detials.PatientsDetialsActivity;
+import com.alibenalidoctor.activities_fragments.activity_patients.PatientsActivity;
 import com.alibenalidoctor.activities_fragments.activity_reservdetials.ReservDetialsActivity;
 import com.alibenalidoctor.adapters.PatientAdapter;
+import com.alibenalidoctor.adapters.PatientDetialsAdapter;
 import com.alibenalidoctor.databinding.ActivityPatientsBinding;
+import com.alibenalidoctor.databinding.ActivityPatientsDetialsBinding;
 import com.alibenalidoctor.language.Language;
-import com.alibenalidoctor.models.PatientModel;
-import com.alibenalidoctor.models.PatinetDataModel;
+import com.alibenalidoctor.models.ReservationDataModel;
+import com.alibenalidoctor.models.ReservationDataModel;
+import com.alibenalidoctor.models.ReservationModel;
 import com.alibenalidoctor.models.UserModel;
 import com.alibenalidoctor.preferences.Preferences;
 import com.alibenalidoctor.remote.Api;
@@ -39,16 +39,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PatientsActivity extends AppCompatActivity {
-    private ActivityPatientsBinding binding;
+public class PatientsDetialsActivity extends AppCompatActivity {
+    private ActivityPatientsDetialsBinding binding;
     private String lang;
     private Preferences preferences;
     private UserModel userModel;
 
 
-    private List<PatientModel> list;
-    private PatientAdapter patientAdapter;
-
+    private List<ReservationModel> list;
+    private PatientDetialsAdapter patientDetialsAdapter;
+    private String type;
+    private String reservid;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -58,10 +59,18 @@ public class PatientsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_patients);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_patients_detials);
+        getDataFromIntent();
         initView();
     }
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            type = intent.getStringExtra("type");
+            reservid = intent.getStringExtra("data");
 
+        }
+    }
 
     private void initView() {
         list = new ArrayList<>();
@@ -79,63 +88,43 @@ public class PatientsActivity extends AppCompatActivity {
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        patientAdapter = new PatientAdapter(list, this);
-        binding.recView.setAdapter(patientAdapter);
+        patientDetialsAdapter = new PatientDetialsAdapter(list, this);
+        binding.recView.setAdapter(patientDetialsAdapter);
         binding.llBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        binding.edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().isEmpty()){
-                    getData("all");
-                }else {
-                    getData(s.toString());
-                }
-            }
-        });
-        getData("all");
+        getData();
     }
 
 
     public void show(int reservid) {
 //        binding.recView.setVisibility(View.GONE);
 //        binding.llNoData.setVisibility(View.VISIBLE);
-        Intent intent = new Intent(PatientsActivity.this, PatientsDetialsActivity.class);
+        Intent intent = new Intent(PatientsDetialsActivity.this, ReservDetialsActivity.class);
         intent.putExtra("type", "reserv");
         intent.putExtra("data", reservid + "");
         startActivity(intent);
     }
 
-    public void getData(String query) {
+    public void getData() {
 
         binding.progBar.setVisibility(View.VISIBLE);
         binding.tvNoData.setVisibility(View.GONE);
         list.clear();
-        patientAdapter.notifyDataSetChanged();
+        patientDetialsAdapter.notifyDataSetChanged();
         if (userModel == null) {
             binding.swipeRefresh.setRefreshing(false);
             binding.progBar.setVisibility(View.GONE);
             binding.tvNoData.setVisibility(View.VISIBLE);
             return;
         }
-        Api.getService(Tags.base_url).myPatient(lang, userModel.getUser().getId() + "",query).
-                enqueue(new Callback<PatinetDataModel>() {
+        Api.getService(Tags.base_url).patientDetails(lang, userModel.getUser().getId() + "",reservid).
+                enqueue(new Callback<ReservationDataModel>() {
                     @Override
-                    public void onResponse(Call<PatinetDataModel> call, Response<PatinetDataModel> response) {
+                    public void onResponse(Call<ReservationDataModel> call, Response<ReservationDataModel> response) {
                         binding.progBar.setVisibility(View.GONE);
                         binding.swipeRefresh.setRefreshing(false);
 
@@ -145,7 +134,7 @@ public class PatientsActivity extends AppCompatActivity {
                                 if (response.body().getData().size() > 0) {
                                     binding.tvNoData.setVisibility(View.GONE);
                                     list.addAll(response.body().getData());
-                                    patientAdapter.notifyDataSetChanged();
+                                    patientDetialsAdapter.notifyDataSetChanged();
                                 } else {
                                     binding.tvNoData.setVisibility(View.VISIBLE);
 
@@ -168,7 +157,7 @@ public class PatientsActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<PatinetDataModel> call, Throwable t) {
+                    public void onFailure(Call<ReservationDataModel> call, Throwable t) {
                         try {
                             binding.tvNoData.setVisibility(View.VISIBLE);
 

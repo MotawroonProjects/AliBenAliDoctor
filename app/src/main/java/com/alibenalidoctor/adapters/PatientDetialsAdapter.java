@@ -11,22 +11,24 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibenalidoctor.R;
+import com.alibenalidoctor.activities_fragments.activity_home.HomeActivity;
 import com.alibenalidoctor.activities_fragments.activity_patients.PatientsActivity;
-import com.alibenalidoctor.databinding.PatientRowBinding;
+import com.alibenalidoctor.activities_fragments.activity_patients_detials.PatientsDetialsActivity;
+import com.alibenalidoctor.databinding.PatientDetialsRowBinding;
 import com.alibenalidoctor.databinding.ReservisionRowBinding;
-import com.alibenalidoctor.models.PatientModel;
+import com.alibenalidoctor.models.ReservationModel;
 
 import java.util.List;
 
-public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PatientDetialsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<PatientModel> list;
+    private List<ReservationModel> list;
     private Context context;
     private LayoutInflater inflater;
     private int i = 0;
 
     //private Fragment_Main fragment_main;
-    public PatientAdapter(List<PatientModel> list, Context context) {
+    public PatientDetialsAdapter(List<ReservationModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -40,7 +42,7 @@ public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        PatientRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.patient_row, parent, false);
+        PatientDetialsRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.patient_detials_row, parent, false);
         return new MyHolder(binding);
 
 
@@ -55,11 +57,19 @@ public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PatientsActivity patientsActivit = (PatientsActivity) context;
-                patientsActivit.show(list.get(holder.getLayoutPosition()).getId());
-            }
+                if(context instanceof PatientsDetialsActivity){
+                    PatientsDetialsActivity activity = (PatientsDetialsActivity) context;
+                activity.show(list.get(holder.getLayoutPosition()).getId());
+            }}
         });
-
+        myHolder.binding.tvDetials.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(context instanceof PatientsDetialsActivity){
+                    PatientsDetialsActivity activity = (PatientsDetialsActivity) context;
+                    activity.show(list.get(holder.getLayoutPosition()).getId());
+                }}
+        });
     }
 
     @Override
@@ -68,9 +78,9 @@ public class PatientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        public PatientRowBinding binding;
+        public PatientDetialsRowBinding binding;
 
-        public MyHolder(@NonNull PatientRowBinding binding) {
+        public MyHolder(@NonNull PatientDetialsRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 
