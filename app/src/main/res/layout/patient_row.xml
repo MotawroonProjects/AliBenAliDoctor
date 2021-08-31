@@ -59,7 +59,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
-                            android:text='@{@string/lastdi+model.last_reservation.date.date}'
+                            android:text='@{@string/lastdi+model.last_date.date}'
                             android:textColor="@color/black"
                             android:textSize="14sp"
 
